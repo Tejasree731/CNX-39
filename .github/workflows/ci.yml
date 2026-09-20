@@ -1,0 +1,61 @@
+name: CI Checks
+
+# Trigger on push or pull request to the main branch, or manually from GitHub
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  # 1. Frontend Job: Checks dependencies and production build
+  frontend:
+    name: Frontend Build & Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Frontend Dependencies
+        run: npm ci
+
+      # Note: We build the app to make sure there are no syntax or bundler errors
+      - name: Build Frontend
+        run: npm run build
+
+      # Optional: Lint check (set to continue-on-error until unused vars are cleaned up)
+      - name: Run ESLint
+        run: npm run lint
+        continue-on-error: true
+
+  # 2. Backend Job: Checks backend dependencies and server syntax
+  backend:
+    name: Backend Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: npm ci
+
+      - name: Validate Server Syntax
+        working-directory: ./backend
+        run: node --check server.js
