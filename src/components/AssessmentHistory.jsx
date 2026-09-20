@@ -3,33 +3,33 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Brain, Sparkles, Zap, Users, ChevronDown, ChevronUp } from 'lucide-react';
 
 const TYPE_META = {
-  'GAD-7': { icon: Brain,    color: 'indigo', label: 'Anxiety' },
-  'PHQ-9': { icon: Sparkles, color: 'emerald', label: 'Depression' },
+  'GAD-7': { icon: Brain,    color: 'violet', label: 'Anxiety' },
+  'PHQ-9': { icon: Sparkles, color: 'jade',   label: 'Depression' },
   'RQ-10': { icon: Zap,      color: 'amber',  label: 'Resilience' },
-  'SCS-8': { icon: Users,    color: 'rose',   label: 'Connectedness' },
+  'SCS-8': { icon: Users,    color: 'magenta',label: 'Connectedness' },
 };
 
 const SEVERITY_BADGE = {
-  'None-Minimal':      'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600',
-  'Mild':              'bg-amber-50 dark:bg-amber-900/20 text-amber-600',
-  'Moderate':          'bg-orange-50 dark:bg-orange-900/20 text-orange-600',
-  'Moderately Severe': 'bg-red-50 dark:bg-red-900/20 text-red-500',
-  'Severe':            'bg-red-100 dark:bg-red-900/30 text-red-700',
-  'Fragile':           'bg-red-50 dark:bg-red-900/20 text-red-500',
-  'Developing':        'bg-amber-50 dark:bg-amber-900/20 text-amber-600',
-  'Strong':            'bg-blue-50 dark:bg-blue-900/20 text-blue-600',
-  'Champion':          'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600',
-  'Isolated':          'bg-red-50 dark:bg-red-900/20 text-red-600',
-  'At-Risk':           'bg-orange-50 dark:bg-orange-900/20 text-orange-600',
-  'Connected':         'bg-blue-50 dark:bg-blue-900/20 text-blue-600',
-  'Thriving':          'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600',
+  'None-Minimal':      'bg-secondary-500/15 border border-secondary-500/30 text-secondary-300',
+  'Mild':              'bg-amber-500/15 border border-amber-500/30 text-amber-300',
+  'Moderate':          'bg-orange-500/15 border border-orange-500/30 text-orange-300',
+  'Moderately Severe': 'bg-pink-500/15 border border-pink-500/30 text-pink-300',
+  'Severe':            'bg-magenta-500/20 border border-magenta-500/40 text-magenta-300',
+  'Fragile':           'bg-pink-500/15 border border-pink-500/30 text-pink-300',
+  'Developing':        'bg-amber-500/15 border border-amber-500/30 text-amber-300',
+  'Strong':            'bg-violet-500/15 border border-violet-500/30 text-violet-300',
+  'Champion':          'bg-secondary-500/15 border border-secondary-500/30 text-secondary-300',
+  'Isolated':          'bg-magenta-500/20 border border-magenta-500/40 text-magenta-300',
+  'At-Risk':           'bg-orange-500/15 border border-orange-500/30 text-orange-300',
+  'Connected':         'bg-violet-500/15 border border-violet-500/30 text-violet-300',
+  'Thriving':          'bg-secondary-500/15 border border-secondary-500/30 text-secondary-300',
 };
 
 const COLOR = {
-  indigo: { bg: 'bg-indigo-50 dark:bg-indigo-900/20', text: 'text-indigo-600' },
-  emerald: { bg: 'bg-emerald-50 dark:bg-emerald-900/20', text: 'text-emerald-600' },
-  amber: { bg: 'bg-amber-50 dark:bg-amber-900/20', text: 'text-amber-600' },
-  rose: { bg: 'bg-rose-50 dark:bg-rose-900/20', text: 'text-rose-600' },
+  violet:  { bg: 'bg-violet-600/20 border border-violet-500/30', text: 'text-violet-400' },
+  jade:    { bg: 'bg-secondary-500/20 border border-secondary-500/30', text: 'text-secondary-400' },
+  amber:   { bg: 'bg-amber-500/20 border border-amber-500/30', text: 'text-amber-400' },
+  magenta: { bg: 'bg-magenta-500/20 border border-magenta-500/30', text: 'text-magenta-400' },
 };
 
 export default function AssessmentHistory({ assessments = [] }) {
@@ -37,10 +37,10 @@ export default function AssessmentHistory({ assessments = [] }) {
 
   if (assessments.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-400 dark:text-gray-600">
-        <Brain size={32} className="mx-auto mb-3 opacity-30" />
-        <p className="text-xs font-bold uppercase tracking-widest">No assessments yet</p>
-        <p className="text-[10px] mt-1">Complete an assessment to see your history here</p>
+      <div className="text-center py-12 text-violet-300/40">
+        <Brain size={32} className="mx-auto mb-3 opacity-30 text-violet-400" />
+        <p className="text-xs font-bold uppercase tracking-widest text-violet-300/60">No assessments yet</p>
+        <p className="text-[10px] mt-1 text-violet-400/40">Complete an assessment to see your history here</p>
       </div>
     );
   }
@@ -54,7 +54,7 @@ export default function AssessmentHistory({ assessments = [] }) {
         const meta = TYPE_META[ass.type] || TYPE_META['GAD-7'];
         const Icon = meta.icon;
         const c = COLOR[meta.color];
-        const badgeClass = SEVERITY_BADGE[ass.severity] || 'bg-gray-100 text-gray-600';
+        const badgeClass = SEVERITY_BADGE[ass.severity] || 'bg-violet-500/10 border border-violet-500/20 text-violet-300';
         const isOpen = expanded === ass._id;
         const date = new Date(ass.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
 
@@ -64,29 +64,29 @@ export default function AssessmentHistory({ assessments = [] }) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="bg-gray-50 dark:bg-darkbg rounded-2xl border border-gray-100 dark:border-darkborder overflow-hidden"
+            className="bg-[#0d0a1a] rounded-2xl border border-[#1e1535] hover:border-violet-500/40 transition-all overflow-hidden shadow-sm"
           >
             <button
               onClick={() => setExpanded(isOpen ? null : ass._id)}
-              className="w-full flex items-center gap-4 p-4 text-left hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-colors"
+              className="w-full flex items-center gap-4 p-4 text-left hover:bg-[#13102a] transition-colors"
             >
-              <div className={`w-9 h-9 ${c.bg} ${c.text} rounded-xl flex items-center justify-center shrink-0`}>
+              <div className={`w-9 h-9 ${c.bg} ${c.text} rounded-xl flex items-center justify-center shrink-0 shadow-inner`}>
                 <Icon size={16} />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
-                  <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">{ass.type}</span>
+                  <span className="text-[9px] font-black text-violet-400/60 uppercase tracking-widest">{ass.type}</span>
                   <span className={`px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest ${badgeClass}`}>
                     {ass.severity}
                   </span>
                 </div>
-                <p className="text-xs font-black text-gray-800 dark:text-gray-200 truncate">{ass.title}</p>
+                <p className="text-xs font-black text-violet-100 truncate">{ass.title}</p>
               </div>
               <div className="text-right shrink-0">
-                <p className="text-lg font-black text-gray-900 dark:text-white italic leading-none">{ass.totalScore}</p>
-                <p className="text-[8px] text-gray-400 font-bold mt-0.5">{date}</p>
+                <p className="text-lg font-black text-white italic leading-none">{ass.totalScore}</p>
+                <p className="text-[8px] text-violet-400/60 font-bold mt-0.5">{date}</p>
               </div>
-              {isOpen ? <ChevronUp size={14} className="text-gray-400 shrink-0" /> : <ChevronDown size={14} className="text-gray-400 shrink-0" />}
+              {isOpen ? <ChevronUp size={14} className="text-violet-400 shrink-0" /> : <ChevronDown size={14} className="text-violet-400/60 shrink-0" />}
             </button>
 
             <AnimatePresence>
@@ -96,16 +96,19 @@ export default function AssessmentHistory({ assessments = [] }) {
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="overflow-hidden"
+                  className="overflow-hidden border-t border-[#1e1535]"
                 >
-                  <div className="px-4 pb-4 pt-0 space-y-3">
-                    <p className="text-[11px] text-gray-600 dark:text-gray-400 font-medium leading-relaxed">
+                  <div className="p-4 space-y-3 bg-[#07050f]/60">
+                    <p className="text-[11px] text-violet-200/80 font-medium leading-relaxed">
                       {ass.clinicalInterpretation}
                     </p>
                     {ass.aiInsight && (
-                      <div className="bg-gradient-to-r from-primary-50 to-indigo-50 dark:from-primary-900/10 dark:to-indigo-900/10 rounded-xl p-4 border border-primary-100 dark:border-primary-900/20">
-                        <p className="text-[8px] font-black text-primary-500 uppercase tracking-widest mb-2">AI Insight</p>
-                        <p className="text-[11px] text-gray-700 dark:text-gray-300 italic leading-relaxed">
+                      <div className="bg-gradient-to-r from-violet-950/50 to-fuchsia-950/40 rounded-xl p-4 border border-violet-500/30">
+                        <p className="text-[8px] font-black text-violet-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                          <Sparkles size={10} className="text-amber-400" />
+                          AI Insight
+                        </p>
+                        <p className="text-[11px] text-violet-100 italic leading-relaxed">
                           "{ass.aiInsight}"
                         </p>
                       </div>

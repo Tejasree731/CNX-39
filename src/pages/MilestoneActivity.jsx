@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Wind, Brain, Users, ArrowLeft, CheckCircle2, ChevronRight, AlertCircle, ClipboardList, Smile, Frown, Meh } from 'lucide-react';
+import { Brain, Users, ArrowLeft, CheckCircle2, ChevronRight, AlertCircle, ClipboardList, Smile, Frown, Meh, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 
 const BreathingExercise = ({ onComplete }) => {
@@ -29,18 +29,24 @@ const BreathingExercise = ({ onComplete }) => {
     return () => clearInterval(timer);
   }, [stage, seconds, cycle, onComplete]);
 
+  const getStageColor = () => {
+    if (stage === 'Inhale') return 'border-violet-500 shadow-[0_0_30px_rgba(124,58,237,0.5)] text-violet-300';
+    if (stage === 'Hold') return 'border-magenta-500 shadow-[0_0_30px_rgba(236,72,153,0.5)] text-magenta-300';
+    return 'border-secondary-400 shadow-[0_0_30px_rgba(16,192,122,0.5)] text-secondary-300';
+  };
+
   return (
     <div className="flex flex-col items-center justify-center space-y-12 py-12">
       <motion.div
-        animate={{ scale: stage === 'Inhale' ? 1.5 : stage === 'Hold' ? 1.5 : 1 }}
+        animate={{ scale: stage === 'Inhale' ? 1.4 : stage === 'Hold' ? 1.4 : 1 }}
         transition={{ duration: stage === 'Inhale' ? 4 : stage === 'Hold' ? 7 : 8, ease: "linear" }}
-        className="w-48 h-48 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center border-4 border-primary-500 shadow-2xl shadow-primary-500/20"
+        className={`w-48 h-48 rounded-full bg-[#130d28] flex items-center justify-center border-4 ${getStageColor()} transition-colors duration-500`}
       >
-        <span className="text-3xl font-black text-primary-600 dark:text-primary-400">{seconds}s</span>
+        <span className="text-4xl font-black">{seconds}s</span>
       </motion.div>
       <div className="text-center">
-        <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-2">{stage}...</h2>
-        <p className="text-gray-500">Cycle {cycle + 1} of 3</p>
+        <h2 className="text-4xl font-black text-white italic mb-2 tracking-tight">{stage}...</h2>
+        <p className="text-violet-400/60 font-bold uppercase tracking-widest text-xs">Cycle {cycle + 1} of 3</p>
       </div>
     </div>
   );
@@ -52,20 +58,28 @@ const MeditationActivity = ({ onComplete }) => {
 
     return (
         <div className="flex flex-col space-y-8 py-8 items-center text-center">
-            <div className="max-w-md bg-secondary-50 dark:bg-secondary-900/10 p-8 rounded-3xl border border-secondary-100 dark:border-secondary-900/30">
-                <Brain className="w-12 h-12 text-secondary-500 mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-4 italic">"I am at peace with my world. Everything is unfolding as it should."</h3>
-                <p className="text-gray-600 dark:text-gray-400">Close your eyes, take a deep breath, and repeat this affirmation in your head for 60 seconds.</p>
+            <div className="max-w-md bg-[#130d28] p-8 rounded-3xl border border-[#261a45] shadow-inner">
+                <Brain className="w-12 h-12 text-violet-400 mx-auto mb-4" />
+                <h3 className="text-xl font-black text-white mb-4 italic leading-relaxed">
+                  "I am at peace with my world. Everything is unfolding as it should."
+                </h3>
+                <p className="text-violet-300/70 text-sm leading-relaxed">
+                  Close your eyes, take a deep breath, and repeat this affirmation in your head for 60 seconds.
+                </p>
             </div>
             
             <div className="w-full max-w-sm">
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-4">How do you feel after this session?</label>
+                <label className="block text-sm font-bold text-violet-300 mb-4">How do you feel after this session?</label>
                 <div className="grid grid-cols-2 gap-3">
                     {moods.map(m => (
                         <button 
                             key={m} 
                             onClick={() => setMood(m)}
-                            className={`px-4 py-3 rounded-2xl border font-semibold transition-all ${mood === m ? 'bg-secondary-500 text-white border-secondary-500 shadow-lg' : 'bg-white dark:bg-darkcard border-gray-100 dark:border-darkborder text-gray-600 dark:text-gray-400'}`}
+                            className={`px-4 py-3.5 rounded-2xl border font-bold text-sm transition-all cursor-pointer ${
+                              mood === m 
+                                ? 'bg-gradient-to-r from-violet-600 to-magenta-600 text-white border-violet-400 shadow-[0_0_15px_rgba(124,58,237,0.4)]' 
+                                : 'bg-[#130d28] border-[#261a45] text-violet-300/70 hover:border-violet-500/40 hover:text-white'
+                            }`}
                         >
                             {m}
                         </button>
@@ -76,69 +90,75 @@ const MeditationActivity = ({ onComplete }) => {
             <button 
                 disabled={!mood}
                 onClick={() => onComplete({ mood: mood.toLowerCase() })}
-                className="bg-primary-600 hover:bg-primary-500 disabled:opacity-50 text-white px-8 py-4 rounded-full font-bold shadow-xl transition-all flex items-center gap-2"
+                className="bg-gradient-to-r from-violet-600 to-magenta-600 hover:from-violet-500 hover:to-magenta-500 disabled:opacity-50 text-white px-8 py-4 rounded-full font-bold shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all flex items-center gap-2 cursor-pointer text-sm"
             >
-                Complete Meditation <ChevronRight size={20} />
+                Complete Meditation <ChevronRight size={18} />
             </button>
         </div>
-    )
-}
+    );
+};
 
 const TalkToFriend = ({ onComplete }) => {
     const [thought, setThought] = useState('');
 
     return (
         <div className="flex flex-col space-y-8 py-8 items-center text-center">
-            <div className="max-w-md bg-blue-50 dark:bg-blue-900/10 p-8 rounded-3xl border border-blue-100 dark:border-blue-900/30">
-                <Users className="w-12 h-12 text-blue-500 mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2">Reach Out</h3>
-                <p className="text-gray-600 dark:text-gray-400">Connection is a powerful tool for wellbeing. Think of one friend or family member you trust. What's one thing you'd like to share with them right now?</p>
+            <div className="max-w-md bg-[#130d28] p-8 rounded-3xl border border-[#261a45]">
+                <Users className="w-12 h-12 text-magenta-400 mx-auto mb-4" />
+                <h3 className="text-xl font-black text-white italic mb-2">Reach Out</h3>
+                <p className="text-violet-300/70 text-sm leading-relaxed">
+                  Connection is a powerful tool for wellbeing. Think of one friend or family member you trust. What's one thing you'd like to share with them right now?
+                </p>
             </div>
             
             <textarea 
                 value={thought}
                 onChange={(e) => setThought(e.target.value)}
-                placeholder="Write your thought here... (it stays private)"
-                className="w-full max-w-md bg-gray-50 dark:bg-darkbg border border-gray-200 dark:border-darkborder rounded-2xl p-4 min-h-[120px] focus:ring-2 focus:ring-primary-500 outline-none transition-all"
+                placeholder="Write your thought here... (it stays strictly private)"
+                className="w-full max-w-md bg-[#130d28] border border-[#261a45] text-violet-100 placeholder-violet-400/40 rounded-2xl p-4 min-h-[120px] focus:border-violet-500 outline-none transition-all text-sm font-medium"
             />
 
             <button 
                 disabled={!thought.trim()}
                 onClick={() => onComplete({ thought: thought })}
-                className="bg-primary-600 hover:bg-primary-500 disabled:opacity-50 text-white px-8 py-4 rounded-full font-bold shadow-xl transition-all flex items-center gap-2"
+                className="bg-gradient-to-r from-violet-600 to-magenta-600 hover:from-violet-500 hover:to-magenta-500 disabled:opacity-50 text-white px-8 py-4 rounded-full font-bold shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all flex items-center gap-2 cursor-pointer text-sm"
             >
-                I've reflected on this <ChevronRight size={20} />
+                I've reflected on this <ChevronRight size={18} />
             </button>
         </div>
-    )
-}
+    );
+};
 
 const MoodCheck = ({ onComplete }) => {
     const [sleep, setSleep] = useState('');
     const [energy, setEnergy] = useState('');
 
     const options = [
-        { label: 'Poor', value: 'poor', icon: <Frown className="text-red-500" /> },
-        { label: 'Fair', value: 'fair', icon: <Meh className="text-yellow-500" /> },
-        { label: 'Good', value: 'good', icon: <Smile className="text-green-500" /> }
+        { label: 'Poor', value: 'poor', icon: <Frown className="text-red-400" /> },
+        { label: 'Fair', value: 'fair', icon: <Meh className="text-amber-400" /> },
+        { label: 'Good', value: 'good', icon: <Smile className="text-secondary-400" /> }
     ];
 
     return (
         <div className="flex flex-col space-y-8 py-8 items-center">
             <div className="text-center max-w-md">
-                <h3 className="text-2xl font-bold mb-2">How's your foundation?</h3>
-                <p className="text-gray-500">Checking in on your sleep and energy levels helps us understand your baseline.</p>
+                <h3 className="text-2xl font-black text-white italic mb-2">How's your foundation?</h3>
+                <p className="text-violet-300/60 text-sm">Checking in on your sleep and energy levels helps us understand your baseline.</p>
             </div>
 
             <div className="w-full max-w-sm space-y-6">
                 <div>
-                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3">How did you sleep last night?</label>
+                    <label className="block text-sm font-bold text-violet-300 mb-3 text-center sm:text-left">How did you sleep last night?</label>
                     <div className="grid grid-cols-3 gap-3">
                         {options.map(opt => (
                             <button 
                                 key={opt.value} 
                                 onClick={() => setSleep(opt.value)}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all ${sleep === opt.value ? 'bg-primary-50 border-primary-500 ring-2 ring-primary-500/20' : 'bg-white dark:bg-darkcard border-gray-100 dark:border-darkborder'}`}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-2xl border transition-all cursor-pointer ${
+                                  sleep === opt.value 
+                                    ? 'bg-violet-600/25 border-violet-400 text-white shadow-[0_0_12px_rgba(124,58,237,0.4)]' 
+                                    : 'bg-[#130d28] border-[#261a45] text-violet-300/70 hover:border-violet-500/40'
+                                }`}
                             >
                                 {opt.icon}
                                 <span className="text-xs font-bold">{opt.label}</span>
@@ -148,13 +168,17 @@ const MoodCheck = ({ onComplete }) => {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3">What is your energy level right now?</label>
+                    <label className="block text-sm font-bold text-violet-300 mb-3 text-center sm:text-left">What is your energy level right now?</label>
                     <div className="grid grid-cols-3 gap-3">
                         {[{ label: 'Low', value: 'low' }, { label: 'Medium', value: 'medium' }, { label: 'High', value: 'high' }].map(opt => (
                             <button 
                                 key={opt.value} 
                                 onClick={() => setEnergy(opt.value)}
-                                className={`p-4 rounded-2xl border font-bold text-sm transition-all ${energy === opt.value ? 'bg-primary-50 border-primary-500 ring-2 ring-primary-500/20' : 'bg-white dark:bg-darkcard border-gray-100 dark:border-darkborder'}`}
+                                className={`p-4 rounded-2xl border font-bold text-sm transition-all cursor-pointer ${
+                                  energy === opt.value 
+                                    ? 'bg-violet-600/25 border-violet-400 text-white shadow-[0_0_12px_rgba(124,58,237,0.4)]' 
+                                    : 'bg-[#130d28] border-[#261a45] text-violet-300/70 hover:border-violet-500/40'
+                                }`}
                             >
                                 {opt.label}
                             </button>
@@ -166,9 +190,9 @@ const MoodCheck = ({ onComplete }) => {
             <button 
                 disabled={!sleep || !energy}
                 onClick={() => onComplete({ sleep, energy })}
-                className="bg-primary-600 hover:bg-primary-500 disabled:opacity-50 text-white px-8 py-4 rounded-full font-bold shadow-xl transition-all flex items-center gap-2 mt-4"
+                className="bg-gradient-to-r from-violet-600 to-magenta-600 hover:from-violet-500 hover:to-magenta-500 disabled:opacity-50 text-white px-8 py-4 rounded-full font-bold shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all flex items-center gap-2 mt-4 cursor-pointer text-sm"
             >
-                Submit Check-in <ChevronRight size={20} />
+                Submit Check-in <ChevronRight size={18} />
             </button>
         </div>
     );
@@ -188,20 +212,24 @@ const AnxietyTest = ({ onComplete }) => {
     return (
         <div className="flex flex-col space-y-10 py-8 items-center">
             <div className="text-center max-w-md">
-                <ClipboardList className="w-12 h-12 text-primary-500 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2">Anxiety Assessment</h3>
-                <p className="text-gray-500 italic">Over the last 2 weeks, how often have you been bothered by the following problems?</p>
+                <ClipboardList className="w-12 h-12 text-violet-400 mx-auto mb-4" />
+                <h3 className="text-2xl font-black text-white italic mb-2">Anxiety Assessment</h3>
+                <p className="text-violet-300/70 italic text-sm">Over the last 2 weeks, how often have you been bothered by the following problems?</p>
             </div>
 
-            <div className="w-full max-w-lg space-y-8">
-                <div className="bg-gray-50 dark:bg-darkbg p-6 rounded-3xl">
-                    <p className="font-bold text-gray-800 dark:text-gray-200 mb-4">1. Feeling nervous, anxious, or on edge?</p>
+            <div className="w-full max-w-lg space-y-6">
+                <div className="bg-[#130d28] p-6 rounded-3xl border border-[#261a45]">
+                    <p className="font-bold text-violet-100 mb-4 text-sm">1. Feeling nervous, anxious, or on edge?</p>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                         {scores.map(s => (
                             <button 
                                 key={s.value} 
                                 onClick={() => setQ1(s.value)}
-                                className={`p-3 rounded-xl border text-[10px] font-bold leading-tight transition-all ${q1 === s.value ? 'bg-primary-600 text-white border-primary-600 shadow-md' : 'bg-white dark:bg-darkcard border-gray-200 dark:border-gray-800'}`}
+                                className={`p-3 rounded-xl border text-[10px] font-bold leading-tight transition-all cursor-pointer ${
+                                  q1 === s.value 
+                                    ? 'bg-gradient-to-r from-violet-600 to-magenta-600 text-white border-violet-400 shadow-sm' 
+                                    : 'bg-[#0d0a1a] text-violet-300/70 border-[#261a45] hover:border-violet-500/40'
+                                }`}
                             >
                                 {s.label}
                             </button>
@@ -209,14 +237,18 @@ const AnxietyTest = ({ onComplete }) => {
                     </div>
                 </div>
 
-                <div className="bg-gray-50 dark:bg-darkbg p-6 rounded-3xl">
-                    <p className="font-bold text-gray-800 dark:text-gray-200 mb-4">2. Not being able to stop or control worrying?</p>
+                <div className="bg-[#130d28] p-6 rounded-3xl border border-[#261a45]">
+                    <p className="font-bold text-violet-100 mb-4 text-sm">2. Not being able to stop or control worrying?</p>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                         {scores.map(s => (
                             <button 
                                 key={s.value} 
                                 onClick={() => setQ2(s.value)}
-                                className={`p-3 rounded-xl border text-[10px] font-bold leading-tight transition-all ${q2 === s.value ? 'bg-primary-600 text-white border-primary-600 shadow-md' : 'bg-white dark:bg-darkcard border-gray-200 dark:border-gray-800'}`}
+                                className={`p-3 rounded-xl border text-[10px] font-bold leading-tight transition-all cursor-pointer ${
+                                  q2 === s.value 
+                                    ? 'bg-gradient-to-r from-violet-600 to-magenta-600 text-white border-violet-400 shadow-sm' 
+                                    : 'bg-[#0d0a1a] text-violet-300/70 border-[#261a45] hover:border-violet-500/40'
+                                }`}
                             >
                                 {s.label}
                             </button>
@@ -228,15 +260,13 @@ const AnxietyTest = ({ onComplete }) => {
             <button 
                 disabled={q1 === null || q2 === null}
                 onClick={() => onComplete({ q1, q2 })}
-                className="bg-primary-600 hover:bg-primary-500 disabled:opacity-50 text-white px-10 py-4 rounded-full font-bold shadow-xl transition-all flex items-center gap-2 mt-4"
+                className="bg-gradient-to-r from-violet-600 to-magenta-600 hover:from-violet-500 hover:to-magenta-500 disabled:opacity-50 text-white px-10 py-4 rounded-full font-bold shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all flex items-center gap-2 mt-4 cursor-pointer text-sm"
             >
-                Submit Assessment <ChevronRight size={20} />
+                Submit Assessment <ChevronRight size={18} />
             </button>
         </div>
     );
 };
-
-
 
 export default function MilestoneActivity() {
   const { type } = useParams();
@@ -248,7 +278,7 @@ export default function MilestoneActivity() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/api/milestones/complete', {
+      const res = await fetch('/api/milestones/complete', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -261,8 +291,6 @@ export default function MilestoneActivity() {
 
       if (res.ok) {
         setCompleted(true);
-        
-        // Show success toast
         toast.success(`Milestone completed! +${result.xpGained} XP`);
         
         if (result.leveledUp) {
@@ -272,7 +300,6 @@ export default function MilestoneActivity() {
           });
         }
 
-        // Update local user state if available
         const storedUser = JSON.parse(localStorage.getItem('user'));
         if (storedUser) {
           storedUser.xp = result.xp;
@@ -282,25 +309,28 @@ export default function MilestoneActivity() {
       }
     } catch (error) {
       toast.error("Failed to save progress. Please try again.");
-      console.error("Failed to complete milestone:", error);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-darkbg py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-[#07050f] py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute top-10 left-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-magenta-500/10 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-3xl mx-auto relative z-10">
         
         {/* Header */}
         <button 
           onClick={() => navigate('/dashboard')}
-          className="flex items-center gap-2 text-gray-500 hover:text-primary-600 transition-colors mb-8 group"
+          className="flex items-center gap-2 text-violet-400 hover:text-white transition-colors mb-8 group font-bold text-sm cursor-pointer"
         >
-          <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> Back to Dashboard
+          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" /> Back to Dashboard
         </button>
 
-        <div className="bg-white dark:bg-darkcard rounded-[2.5rem] shadow-xl border border-gray-100 dark:border-darkborder p-8 sm:p-12 overflow-hidden relative">
+        <div className="bg-[#0d0a1a] rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_25px_rgba(124,58,237,0.15)] border border-[#1e1535] p-8 sm:p-12 overflow-hidden relative">
           
           <AnimatePresence mode="wait">
             {!completed ? (
@@ -323,16 +353,16 @@ export default function MilestoneActivity() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center py-12"
               >
-                <div className="w-24 h-24 bg-primary-100 dark:bg-primary-900/30 text-primary-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner shadow-primary-500/20">
+                <div className="w-24 h-24 bg-secondary-500/20 text-secondary-400 border border-secondary-500/40 rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_30px_rgba(16,192,122,0.4)]">
                   <CheckCircle2 size={48} />
                 </div>
-                <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-4">Well Done!</h2>
-                <p className="text-gray-500 dark:text-gray-400 mb-10 max-w-sm mx-auto text-lg leading-relaxed">
-                  You've successfully completed this milestone. Your progress has been saved.
+                <h2 className="text-4xl font-black bg-gradient-to-r from-violet-200 to-white bg-clip-text text-transparent italic mb-3">Well Done!</h2>
+                <p className="text-violet-300/70 mb-10 max-w-sm mx-auto text-base leading-relaxed font-medium">
+                  You've successfully completed this milestone. Your progress has been securely updated.
                 </p>
                 <button
                   onClick={() => navigate('/dashboard')}
-                  className="bg-primary-600 hover:bg-primary-500 text-white px-10 py-4 rounded-full font-bold shadow-xl shadow-primary-500/30 transition-all transform hover:-translate-y-1"
+                  className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-magenta-600 hover:from-violet-500 hover:to-magenta-500 text-white px-10 py-4 rounded-full font-bold shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all transform hover:-translate-y-0.5 cursor-pointer text-sm uppercase tracking-widest"
                 >
                   Return to Dashboard
                 </button>
@@ -341,10 +371,10 @@ export default function MilestoneActivity() {
           </AnimatePresence>
 
           {loading && (
-            <div className="absolute inset-0 bg-white/80 dark:bg-darkbg/80 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="absolute inset-0 bg-[#07050f]/80 backdrop-blur-sm flex items-center justify-center z-50">
               <div className="flex flex-col items-center gap-4">
-                <div className="w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
-                <p className="font-bold text-primary-600">Saving Progress...</p>
+                <div className="w-12 h-12 border-4 border-violet-500 border-t-transparent rounded-full animate-spin shadow-[0_0_15px_rgba(124,58,237,0.5)]"></div>
+                <p className="font-bold text-violet-300">Saving Progress...</p>
               </div>
             </div>
           )}
@@ -352,11 +382,11 @@ export default function MilestoneActivity() {
 
         {/* Tips Section */}
         {!completed && (
-            <div className="mt-8 flex gap-4 bg-primary-50/50 dark:bg-primary-900/5 p-6 rounded-3xl border border-primary-100/50 dark:border-primary-900/20">
-                <AlertCircle className="text-primary-500 shrink-0 mt-1" />
+            <div className="mt-8 flex gap-4 bg-[#130d28] p-6 rounded-3xl border border-[#261a45]">
+                <AlertCircle className="text-violet-400 shrink-0 mt-0.5" size={20} />
                 <div>
-                    <p className="text-sm font-bold text-primary-900 dark:text-primary-300">Quick Tip</p>
-                    <p className="text-sm text-primary-700/70 dark:text-primary-400/70 italic">
+                    <p className="text-sm font-black text-violet-300 mb-1">Quick Tip</p>
+                    <p className="text-xs text-violet-300/70 italic leading-relaxed">
                         {type === 'breathing' ? "If you feel lightheaded, pause and breathe normally. It's okay to start slow." : 
                          type === 'meditation' ? "If your mind wanders, gently bring your focus back to the affirmation without judgment." : 
                          type === 'talking_to_friend' ? "Talking to a friend doesn't always have to be about 'serious' things. Sometimes just sharing a laugh is the best support." :

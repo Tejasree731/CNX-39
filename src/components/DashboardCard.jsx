@@ -7,63 +7,73 @@ export default function DashboardCard({
   icon, 
   isBeta, 
   onClick, 
-  delay, 
+  delay = 0, 
   trend, 
-  trendValue,
+  trendValue, 
   variant = 'default',
   className = ''
 }) {
   const variants = {
-    default: 'bg-white/80 dark:bg-darkcard/50 backdrop-blur-xl border border-gray-100 dark:border-white/10 hover:shadow-2xl hover:border-primary-200/50 dark:hover:border-primary-500/30',
-    primary: 'bg-gradient-to-br from-primary-600 to-indigo-700 text-white shadow-xl shadow-primary-500/20 border-transparent hover:scale-[1.02]',
-    secondary: 'bg-indigo-50/50 dark:bg-indigo-900/10 backdrop-blur-md text-indigo-700 dark:text-indigo-400 border-indigo-100 dark:border-indigo-800/50 hover:border-indigo-300',
-    accent: 'bg-rose-50/50 dark:bg-rose-900/10 backdrop-blur-md text-rose-700 dark:text-rose-400 border-rose-100 dark:border-rose-800/50 hover:border-rose-300'
+    default: 'bg-white dark:bg-[#0d0a1a] border border-violet-100 dark:border-[#1e1535] hover:border-violet-300 dark:hover:border-violet-700',
+    primary: 'bg-gradient-to-br from-[#13102a] to-[#1a0d2e] dark:from-[#13102a] dark:to-[#0d0a1a] text-white border-2 border-violet-600/60 shadow-[3px_3px_0_0_#7c3aed] hover:border-violet-400',
+    secondary: 'bg-white dark:bg-[#0d0a1a] border border-secondary-500/30 dark:border-secondary-500/40 hover:border-secondary-500/70',
+    accent: 'bg-white dark:bg-[#0d0a1a] border border-magenta-500/30 dark:border-pink-500/40 hover:border-pink-500/70'
   };
 
   return (
     <motion.button
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
+      transition={{ duration: 0.4, delay }}
       onClick={onClick}
-      className={`group p-8 rounded-[2.5rem] transition-all text-left flex flex-col relative overflow-hidden h-full ${variants[variant]} ${className}`}
+      className={`group p-6 rounded-2xl transition-all text-left flex flex-col relative overflow-hidden h-full shadow-[3px_3px_0_0_#1a1030] dark:shadow-[3px_3px_0_0_rgba(124,58,237,0.18)] hover:shadow-[1px_1px_0_0_#1a1030] dark:hover:shadow-[1px_1px_0_0_rgba(124,58,237,0.28)] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer ${variants[variant]} ${className}`}
     >
-      <div className={`p-4 rounded-2xl w-fit mb-6 group-hover:rotate-12 transition-all ${
-        variant === 'primary' 
-          ? 'bg-white/20 text-white' 
-          : 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 group-hover:bg-primary-100'
-      }`}>
-        {icon}
+      <div className="flex items-center justify-between w-full mb-4">
+        <div className={`p-3 rounded-xl border shadow-[2px_2px_0_0_#1a1030] dark:shadow-[2px_2px_0_0_rgba(124,58,237,0.2)] transition-transform group-hover:scale-105 ${
+          variant === 'primary' 
+            ? 'bg-violet-600/80 text-white border-violet-500/50' 
+            : variant === 'secondary'
+            ? 'bg-secondary-50 dark:bg-secondary-900/20 text-secondary-600 dark:text-secondary-400 border-secondary-200 dark:border-secondary-800/40'
+            : variant === 'accent'
+            ? 'bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 border-pink-200 dark:border-pink-800/40'
+            : 'bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-400 border-violet-200 dark:border-violet-800/40'
+        }`}>
+          {icon}
+        </div>
+
+        {isBeta && (
+          <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-fuchsia-300 dark:border-fuchsia-800 text-fuchsia-600 dark:text-fuchsia-300 bg-fuchsia-50 dark:bg-fuchsia-950/40 shadow-[1px_1px_0_0_#a21caf]">
+            Phase 3
+          </span>
+        )}
       </div>
       
       <div className="flex-1">
-        <h3 className={`text-sm font-black uppercase tracking-widest mb-1 opacity-60 ${variant === 'primary' ? 'text-white' : 'text-gray-500 dark:text-gray-400'}`}>{title}</h3>
-        <p className={`text-2xl font-black italic tracking-tight ${
-          variant === 'primary' ? 'text-white' : 'text-gray-900 dark:text-white'
+        <h3 className={`text-[10px] font-mono font-bold uppercase tracking-widest mb-1 ${
+          variant === 'primary' ? 'text-violet-300' : 'text-gray-500 dark:text-violet-400/60'
+        }`}>{title}</h3>
+        <p className={`text-xl font-bold tracking-tight transition-colors ${
+          variant === 'primary' 
+            ? 'text-white group-hover:text-violet-200'
+            : 'text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-violet-400'
         }`}>
           {description}
         </p>
       </div>
 
       {trend && (
-        <div className={`mt-6 flex items-center gap-2 text-[10px] font-black uppercase tracking-tighter px-3 py-1 rounded-full w-fit ${
+        <div className={`mt-4 flex items-center gap-1.5 text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border w-fit ${
           trend === 'up' 
-            ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400' 
-            : 'bg-rose-50 text-rose-600 dark:bg-rose-900/20 dark:text-rose-400'
+            ? 'border-secondary-500/40 bg-secondary-50 text-secondary-700 dark:bg-secondary-950/30 dark:text-secondary-400 shadow-[1px_1px_0_0_#10c07a]' 
+            : 'border-rose-500/40 bg-rose-50 text-rose-700 dark:bg-rose-950/30 dark:text-rose-400 shadow-[1px_1px_0_0_#f43f5e]'
         }`}>
-          {trend === 'up' ? '↑' : '↓'} {trendValue} System Growth
+          <span>{trend === 'up' ? '▲' : '▼'}</span> {trendValue} Growth
         </div>
       )}
-      
-      {isBeta && (
-        <span className="absolute top-8 right-8 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full border border-purple-200 dark:border-purple-800">
-           Phase 3
-        </span>
-      )}
 
-      {/* Subtle Background Glow */}
-      <div className={`absolute -bottom-12 -right-12 w-32 h-32 blur-[64px] rounded-full opacity-20 pointer-events-none ${
-        variant === 'primary' ? 'bg-white' : 'bg-primary-500'
+      {/* Subtle aurora glow on hover */}
+      <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-2xl ${
+        variant === 'primary' ? 'bg-gradient-to-br from-violet-600/5 to-fuchsia-600/5' : ''
       }`} />
     </motion.button>
   );

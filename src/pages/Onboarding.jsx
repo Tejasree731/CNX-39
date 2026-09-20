@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, ArrowLeft, CheckCircle2, HeartPulse, Phone, AlertTriangle } from 'lucide-react';
+import { ArrowRight, ArrowLeft, CheckCircle2, HeartPulse, Phone, AlertTriangle, Sparkles } from 'lucide-react';
 
 // ─── Question Definitions ────────────────────────────────────────────────────
 
@@ -98,45 +98,19 @@ const MENTOR_QUESTIONS = [
     subtitle: "This helps us understand your perspective.",
     options: [
       { label: "Less than 1 year ago", value: "recent" },
-      { label: "1–3 years ago", value: "1_3_years" },
-      { label: "3–5 years ago", value: "3_5_years" },
-      { label: "More than 5 years ago", value: "5_plus" },
+      { label: "1–3 years ago", value: "moderate" },
+      { label: "3+ years ago", value: "established" },
     ],
   },
   {
     id: 'q3',
     type: 'single',
-    question: "What age group are you most comfortable supporting?",
-    subtitle: "We'll match you with youth in your preferred range.",
-    options: [
-      { label: "12–15 (early teens)", value: "12_15" },
-      { label: "15–18 (mid-teens)", value: "15_18" },
-      { label: "18–22 (young adults)", value: "18_22" },
-      { label: "Any age, I'm flexible", value: "any" },
-    ],
-  },
-  {
-    id: 'q4',
-    type: 'single',
-    question: "What mentoring style fits you best?",
-    subtitle: "Every mentor is different — that's a strength.",
-    options: [
-      { label: "🎧 Active listener", value: "listener" },
-      { label: "📋 Goal-setter and planner", value: "planner" },
-      { label: "💬 Encouraging cheerleader", value: "encourager" },
-      { label: "📖 Sharing my personal story", value: "storyteller" },
-    ],
-  },
-  {
-    id: 'q5',
-    type: 'single',
     question: "How many hours per week can you dedicate to mentoring?",
-    subtitle: "Be realistic — consistency matters more than volume.",
+    subtitle: "Even 1–2 hours makes a huge difference.",
     options: [
-      { label: "1–2 hours/week", value: "1_2h" },
-      { label: "3–5 hours/week", value: "3_5h" },
-      { label: "5–10 hours/week", value: "5_10h" },
-      { label: "10+ hours/week", value: "10h_plus" },
+      { label: "1–2 hours / week", value: "1-2" },
+      { label: "3–5 hours / week", value: "3-5" },
+      { label: "5+ hours / week", value: "5+" },
     ],
   },
 ];
@@ -145,64 +119,26 @@ const THERAPIST_QUESTIONS = [
   {
     id: 'q1',
     type: 'single',
-    question: "What is your primary clinical specialization?",
-    subtitle: "This will be shown to youth seeking professional help.",
+    question: "What is your primary clinical focus?",
+    subtitle: "Select the domain where you have the most experience.",
     options: [
-      { label: "🧠 Cognitive Behavioral Therapy (CBT) / Trauma", value: "cbt_trauma" },
-      { label: "👨‍👩‍👧 Family Systems Therapy", value: "family_therapy" },
-      { label: "💔 Grief and Bereavement Counseling", value: "grief_counseling" },
-      { label: "🚫 Addiction and Substance Counseling", value: "addiction_counseling" },
-      { label: "🧒 General Adolescent Psychology", value: "adolescent_psychology" },
-      { label: "🆘 Crisis Intervention", value: "crisis_intervention" },
+      { label: "🧠 CBT & Anxiety Disorders", value: "cbt_anxiety" },
+      { label: "🌧️ Adolescent Depression & Mood Disorders", value: "adolescent_depression" },
+      { label: "🩹 Trauma-Informed Care & PTSD", value: "trauma_ptsd" },
+      { label: "👨‍👩‍👧 Family Systems & Relational Therapy", value: "family_systems" },
+      { label: "🌈 LGBTQ+ Affirmative Therapy", value: "lgbtq_affirmative" },
+      { label: "🧘 Mindfulness & Somatic Approaches", value: "mindfulness_somatic" },
     ],
   },
   {
     id: 'q2',
     type: 'single',
-    question: "How many years have you worked with adolescents?",
-    subtitle: "",
+    question: "What is your typical session format preference?",
+    subtitle: "You can adjust this anytime in your settings.",
     options: [
-      { label: "Less than 1 year", value: "less_1" },
-      { label: "1–3 years", value: "1_3" },
-      { label: "3–7 years", value: "3_7" },
-      { label: "7+ years", value: "7_plus" },
-    ],
-  },
-  {
-    id: 'q3',
-    type: 'single',
-    question: "What is your preferred session format?",
-    subtitle: "",
-    options: [
-      { label: "💻 Video call only", value: "video" },
-      { label: "📞 Audio call only", value: "audio" },
-      { label: "💬 Text / chat only", value: "text" },
-      { label: "🔀 Flexible (any format)", value: "flexible" },
-    ],
-  },
-  {
-    id: 'q4',
-    type: 'multi',
-    question: "Which languages can you conduct sessions in?",
-    subtitle: "Select all that apply.",
-    options: [
-      { label: "English", value: "english" },
-      { label: "Telugu", value: "telugu" },
-      { label: "Hindi", value: "hindi" },
-      { label: "Tamil", value: "tamil" },
-      { label: "Kannada", value: "kannada" },
-      { label: "Other regional language", value: "other" },
-    ],
-  },
-  {
-    id: 'q5',
-    type: 'single',
-    question: "Are you certified in crisis or suicide intervention?",
-    subtitle: "Certified therapists will be prioritised for high-risk youth cases.",
-    options: [
-      { label: "✅ Yes, I am certified", value: "yes" },
-      { label: "🔄 Training in progress", value: "in_progress" },
-      { label: "❌ Not yet", value: "no" },
+      { label: "📹 Video sessions only", value: "video_only" },
+      { label: "💬 Chat / text-based only", value: "chat_only" },
+      { label: "🔄 Both video and chat", value: "both" },
     ],
   },
 ];
@@ -211,12 +147,13 @@ const ADMIN_QUESTIONS = [
   {
     id: 'q1',
     type: 'single',
-    question: "What is your primary administrative focus?",
-    subtitle: "This helps us tailor your management metrics.",
+    question: "Which administrative domain do you primarily oversee?",
+    subtitle: "This tailors your Mission Control dashboard view.",
     options: [
-      { label: "🏥 Clinical Oversight & Safety", value: "clinical_oversight" },
-      { label: "🤝 Community & Mentor Management", value: "community_management" },
-      { label: "📈 Platform Growth & Operations", value: "growth_ops" },
+      { label: "🛡️ Safety, Moderation & Crisis Response", value: "safety" },
+      { label: "👥 Community Growth & Peer Matching", value: "growth" },
+      { label: "👨‍⚕️ Clinical Operations & Therapist Network", value: "clinical" },
+      { label: "📊 Overall Platform Governance", value: "governance" },
     ],
   },
   {
@@ -231,67 +168,63 @@ const ADMIN_QUESTIONS = [
 ];
 
 const COMMUNITY_LABELS = {
-  academic_stress: { label: "Academic Stress Community", color: "bg-blue-100 text-blue-700", emoji: "📚" },
-  social_anxiety: { label: "Social Confidence Community", color: "bg-purple-100 text-purple-700", emoji: "💬" },
-  family_conflict: { label: "Family Support Community", color: "bg-orange-100 text-orange-700", emoji: "🏠" },
-  grief_loss: { label: "Grief & Healing Community", color: "bg-pink-100 text-pink-700", emoji: "💗" },
-  identity_crisis: { label: "Identity & Purpose Community", color: "bg-yellow-100 text-yellow-700", emoji: "🌈" },
-  substance_risk: { label: "Wellbeing & Recovery Community", color: "bg-teal-100 text-teal-700", emoji: "🌿" },
-  self_harm_risk: { label: "Crisis Support (Private)", color: "bg-red-100 text-red-700", emoji: "🆘" },
-  general_wellness: { label: "General Wellness Community", color: "bg-green-100 text-green-700", emoji: "💚" },
+  academic_stress: { label: "Academic Stress Community", color: "bg-violet-600/20 text-violet-300 border border-violet-500/30", emoji: "📚" },
+  social_anxiety: { label: "Social Confidence Community", color: "bg-fuchsia-600/20 text-fuchsia-300 border border-fuchsia-500/30", emoji: "💬" },
+  family_conflict: { label: "Family Support Community", color: "bg-amber-500/20 text-amber-300 border border-amber-500/30", emoji: "🏠" },
+  grief_loss: { label: "Grief & Healing Community", color: "bg-magenta-500/20 text-magenta-300 border border-magenta-500/30", emoji: "💗" },
+  identity_crisis: { label: "Identity & Purpose Community", color: "bg-violet-500/20 text-violet-300 border border-violet-500/30", emoji: "🌈" },
+  substance_risk: { label: "Wellbeing & Recovery Community", color: "bg-secondary-500/20 text-secondary-300 border border-secondary-500/30", emoji: "🌿" },
+  self_harm_risk: { label: "Crisis Support (Private)", color: "bg-red-500/20 text-red-300 border border-red-500/30", emoji: "🆘" },
+  general_wellness: { label: "General Wellness Community", color: "bg-secondary-500/20 text-secondary-300 border border-secondary-500/30", emoji: "💚" },
 };
-
-// ─── Reusable Option Components ──────────────────────────────────────────────
 
 function OptionCard({ option, selected, onClick, multi }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`w-full text-left px-4 py-3 rounded-2xl border-2 transition-all duration-200 flex items-center gap-3 font-medium text-sm ${
+      className={`w-full text-left px-5 py-4 rounded-2xl border-2 transition-all duration-200 flex items-center gap-3 font-medium text-sm cursor-pointer ${
         selected
-          ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 shadow-md shadow-primary-500/10'
-          : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-darkbg text-gray-700 dark:text-gray-300 hover:border-primary-300 hover:bg-primary-50/40'
+          ? 'border-violet-400 bg-violet-600/25 text-white shadow-[0_0_15px_rgba(124,58,237,0.35)]'
+          : 'border-[#261a45] bg-[#130d28] text-violet-200 hover:border-violet-500/50 hover:text-white'
       }`}
     >
       <div className={`w-5 h-5 rounded-${multi ? 'md' : 'full'} border-2 flex items-center justify-center shrink-0 transition-all ${
-        selected ? 'border-primary-500 bg-primary-500' : 'border-gray-300 dark:border-gray-600'
+        selected ? 'border-violet-400 bg-violet-500 shadow-[0_0_8px_#7c3aed]' : 'border-[#3a2761]'
       }`}>
-        {selected && <div className={`${multi ? 'w-2.5 h-2' : 'w-2 h-2 rounded-full'} bg-white`} />}
+        {selected && <div className={`${multi ? 'w-2 h-2' : 'w-2 h-2 rounded-full'} bg-white`} />}
       </div>
       <span>{option.label}</span>
     </button>
   );
 }
 
-// ─── Crisis Banner ───────────────────────────────────────────────────────────
-
 function CrisisBanner() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: -20 }}
+      initial={{ opacity: 0, y: -15 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-3xl p-6 mb-6"
+      className="bg-red-950/40 border-2 border-red-500/40 rounded-3xl p-6 mb-6 shadow-[0_0_25px_rgba(239,68,68,0.25)]"
     >
       <div className="flex items-start gap-4">
-        <div className="bg-red-100 dark:bg-red-900/40 p-3 rounded-2xl">
-          <AlertTriangle className="w-6 h-6 text-red-600 dark:text-red-400" />
+        <div className="bg-red-500/20 border border-red-500/30 p-3 rounded-2xl">
+          <AlertTriangle className="w-6 h-6 text-red-400" />
         </div>
         <div>
-          <h3 className="text-red-800 dark:text-red-300 font-bold text-lg mb-1">You are not alone</h3>
-          <p className="text-red-700 dark:text-red-400 text-sm leading-relaxed mb-4">
+          <h3 className="text-red-300 font-bold text-lg mb-1">You are not alone</h3>
+          <p className="text-red-200/80 text-sm leading-relaxed mb-4">
             It takes real courage to share what you're going through. We're connecting you directly with a professional support path, and a trained therapist will be available for you.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <a
               href="tel:9152987821"
-              className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white px-5 py-2.5 rounded-full text-sm font-bold transition-colors"
+              className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white px-5 py-2.5 rounded-full text-sm font-bold transition-colors shadow-lg shadow-red-600/30"
             >
               <Phone size={16} /> iCall India: 9152987821
             </a>
             <a
               href="tel:1800599019"
-              className="flex items-center gap-2 bg-white dark:bg-darkcard border border-red-300 text-red-700 dark:text-red-400 px-5 py-2.5 rounded-full text-sm font-bold transition-colors hover:bg-red-50"
+              className="flex items-center gap-2 bg-[#160808] border border-red-500/50 text-red-300 px-5 py-2.5 rounded-full text-sm font-bold transition-colors hover:bg-red-900/30"
             >
               <Phone size={16} /> Vandrevala: 1800-599-0019
             </a>
@@ -301,8 +234,6 @@ function CrisisBanner() {
     </motion.div>
   );
 }
-
-// ─── Main Component ──────────────────────────────────────────────────────────
 
 export default function Onboarding() {
   const navigate = useNavigate();
@@ -315,7 +246,7 @@ export default function Onboarding() {
     role === 'admin' ? ADMIN_QUESTIONS :
     YOUTH_QUESTIONS;
 
-  const [step, setStep] = useState(0); // 0 = intro, 1..N = questions, N+1 = result
+  const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -376,22 +307,28 @@ export default function Onboarding() {
   const progress = isResult ? 100 : Math.round((step / totalSteps) * 100);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-darkbg dark:via-darkcard dark:to-darkbg flex items-center justify-center p-4 py-12">
-      <div className="max-w-2xl w-full">
+    <div className="min-h-screen bg-[#07050f] flex items-center justify-center p-4 py-12 relative overflow-hidden">
+      {/* Aurora mesh background */}
+      <div className="absolute top-10 left-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-magenta-500/10 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-2xl w-full relative z-10">
 
         {/* Header */}
         {!isResult && (
           <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-2 mb-3">
-              <HeartPulse className="text-primary-500 w-6 h-6" />
-              <span className="text-primary-600 dark:text-primary-400 font-bold text-sm uppercase tracking-wider">Svasthya Onboarding</span>
+              <HeartPulse className="text-magenta-400 w-6 h-6" />
+              <span className="bg-gradient-to-r from-violet-300 to-magenta-300 bg-clip-text text-transparent font-bold text-sm uppercase tracking-wider">
+                Svasthya Onboarding
+              </span>
             </div>
             {!isIntro && (
               <>
-                <p className="text-xs text-gray-500 mb-2 font-medium">Step {step} of {totalSteps}</p>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full overflow-hidden">
+                <p className="text-xs text-violet-400/60 mb-2 font-medium">Step {step} of {totalSteps}</p>
+                <div className="w-full bg-[#130d28] h-2 rounded-full overflow-hidden border border-[#261a45]">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
+                    className="h-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-magenta-500 shadow-[0_0_10px_rgba(124,58,237,0.5)] rounded-full"
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.4 }}
                   />
@@ -404,23 +341,23 @@ export default function Onboarding() {
         {/* Card */}
         <motion.div
           key={step}
-          initial={{ opacity: 0, x: 30 }}
+          initial={{ opacity: 0, x: 25 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -30 }}
-          transition={{ duration: 0.35 }}
-          className="bg-white dark:bg-darkcard rounded-3xl shadow-xl border border-gray-100 dark:border-darkborder p-8 sm:p-10"
+          exit={{ opacity: 0, x: -25 }}
+          transition={{ duration: 0.3 }}
+          className="bg-[#0d0a1a] rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_25px_rgba(124,58,237,0.15)] border border-[#1e1535] p-8 sm:p-10"
         >
 
           {/* ── INTRO ── */}
           {isIntro && (
             <div className="text-center">
-              <div className="w-20 h-20 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                <HeartPulse className="w-10 h-10 text-primary-500" />
+              <div className="w-20 h-20 bg-gradient-to-br from-violet-600/30 to-fuchsia-600/30 border border-violet-500/30 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(124,58,237,0.3)]">
+                <HeartPulse className="w-10 h-10 text-magenta-400" />
               </div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
+              <h1 className="text-3xl font-black bg-gradient-to-r from-violet-200 via-fuchsia-100 to-white bg-clip-text text-transparent mb-3 italic">
                 Welcome, {storedUser.name?.split(' ')[0] || 'Friend'} 👋
               </h1>
-              <p className="text-gray-500 dark:text-gray-400 text-base leading-relaxed mb-8 max-w-md mx-auto">
+              <p className="text-violet-200/70 text-base leading-relaxed mb-8 max-w-md mx-auto">
                 {role === 'youth'
                   ? "We have a few quick questions to understand what you're going through and connect you to the right community and support. This will take about 2 minutes."
                   : role === 'mentor'
@@ -429,10 +366,10 @@ export default function Onboarding() {
                   ? "Tell us about your clinical background so we can connect you with youth who need your expertise."
                   : "Welcome to the Svasthya Management Console. Let's set up your administrative profile to get you started."}
               </p>
-              <div className="flex flex-wrap justify-center gap-3 text-sm text-gray-500 mb-8">
-                <span className="flex items-center gap-1.5 bg-gray-50 dark:bg-darkbg px-4 py-2 rounded-full border border-gray-100 dark:border-darkborder">🔒 Completely private</span>
-                <span className="flex items-center gap-1.5 bg-gray-50 dark:bg-darkbg px-4 py-2 rounded-full border border-gray-100 dark:border-darkborder">⏱ ~2 minutes</span>
-                <span className="flex items-center gap-1.5 bg-gray-50 dark:bg-darkbg px-4 py-2 rounded-full border border-gray-100 dark:border-darkborder">✏️ {totalSteps} questions</span>
+              <div className="flex flex-wrap justify-center gap-3 text-sm text-violet-300/80 mb-8">
+                <span className="flex items-center gap-1.5 bg-[#130d28] px-4 py-2 rounded-full border border-[#261a45]">🔒 Completely private</span>
+                <span className="flex items-center gap-1.5 bg-[#130d28] px-4 py-2 rounded-full border border-[#261a45]">⏱ ~2 minutes</span>
+                <span className="flex items-center gap-1.5 bg-[#130d28] px-4 py-2 rounded-full border border-[#261a45]">✏️ {totalSteps} questions</span>
               </div>
             </div>
           )}
@@ -440,11 +377,10 @@ export default function Onboarding() {
           {/* ── QUESTION ── */}
           {!isIntro && !isResult && currentQ && (
             <div>
-              {/* Check if self-harm is selected */}
               {role === 'youth' && (answers.q1 || []).includes('self_harm') && <CrisisBanner />}
 
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">{currentQ.question}</h2>
-              {currentQ.subtitle && <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">{currentQ.subtitle}</p>}
+              <h2 className="text-xl sm:text-2xl font-black text-white italic mb-2">{currentQ.question}</h2>
+              {currentQ.subtitle && <p className="text-violet-300/70 text-sm mb-6 font-medium">{currentQ.subtitle}</p>}
 
               <div className="space-y-3">
                 {currentQ.options.map(opt => {
@@ -471,29 +407,29 @@ export default function Onboarding() {
             <div className="text-center">
               {isCrisis ? (
                 <>
-                  <div className="w-20 h-20 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <AlertTriangle className="w-10 h-10 text-red-500" />
+                  <div className="w-20 h-20 bg-red-500/20 border border-red-500/40 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+                    <AlertTriangle className="w-10 h-10 text-red-400" />
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">We're here with you</h2>
-                  <p className="text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">
+                  <h2 className="text-2xl font-black text-white italic mb-3">We're here with you</h2>
+                  <p className="text-violet-200/80 mb-6 leading-relaxed">
                     Your safety matters most. We've flagged your profile for priority therapist support. In the meantime, please reach out to a crisis helpline.
                   </p>
                   <CrisisBanner />
                 </>
               ) : (
                 <>
-                  <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle2 className="w-10 h-10 text-green-500" />
+                  <div className="w-20 h-20 bg-secondary-500/20 border border-secondary-500/40 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(16,192,122,0.4)]">
+                    <CheckCircle2 className="w-10 h-10 text-secondary-400" />
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">You're all set! 🎉</h2>
+                  <h2 className="text-3xl font-black text-white italic mb-2">You're all set! 🎉</h2>
                   {role === 'youth' && result.communityTags?.length > 0 && (
                     <>
-                      <p className="text-gray-500 dark:text-gray-400 mb-6">We've matched you with these communities:</p>
+                      <p className="text-violet-300/70 mb-6 font-medium">We've matched you with these communities:</p>
                       <div className="flex flex-wrap justify-center gap-3 mb-8">
                         {result.communityTags.slice(0, 4).map(tag => {
-                          const comm = COMMUNITY_LABELS[tag] || { label: tag, color: 'bg-gray-100 text-gray-700', emoji: '💚' };
+                          const comm = COMMUNITY_LABELS[tag] || { label: tag, color: 'bg-violet-600/20 text-violet-300 border border-violet-500/30', emoji: '💚' };
                           return (
-                            <span key={tag} className={`${comm.color} px-4 py-2 rounded-full font-semibold text-sm flex items-center gap-2`}>
+                            <span key={tag} className={`${comm.color} px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 shadow-sm`}>
                               {comm.emoji} {comm.label}
                             </span>
                           );
@@ -502,7 +438,7 @@ export default function Onboarding() {
                     </>
                   )}
                   {role !== 'youth' && (
-                    <p className="text-gray-500 dark:text-gray-400 mb-8">Your profile is set up. Head to your dashboard to get started.</p>
+                    <p className="text-violet-300/70 mb-8 font-medium">Your profile is set up. Head to your dashboard to get started.</p>
                   )}
                 </>
               )}
@@ -514,7 +450,7 @@ export default function Onboarding() {
             {step > 0 && !isResult && (
               <button
                 onClick={() => setStep(s => s - 1)}
-                className="flex items-center gap-2 px-5 py-3 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-darkbg font-medium text-sm transition-colors"
+                className="flex items-center gap-2 px-5 py-3 rounded-full border border-[#261a45] text-violet-300 hover:text-white hover:bg-[#130d28] font-bold text-sm transition-colors cursor-pointer"
               >
                 <ArrowLeft size={16} /> Back
               </button>
@@ -524,7 +460,7 @@ export default function Onboarding() {
               <button
                 onClick={next}
                 disabled={!canProceed() || loading}
-                className="flex items-center gap-2 bg-primary-600 hover:bg-primary-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-8 py-3 rounded-full font-bold text-sm shadow-lg shadow-primary-500/20 transition-all"
+                className="flex items-center gap-2 bg-gradient-to-r from-violet-600 to-magenta-600 hover:from-violet-500 hover:to-magenta-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-8 py-3 rounded-full font-bold text-sm shadow-[0_0_20px_rgba(124,58,237,0.4)] transition-all cursor-pointer"
               >
                 {loading ? 'Saving...' : step === totalSteps ? 'Finish & See My Communities' : 'Continue'}
                 {!loading && <ArrowRight size={16} />}
@@ -532,7 +468,7 @@ export default function Onboarding() {
             ) : (
               <button
                 onClick={() => navigate('/dashboard')}
-                className="flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-white px-10 py-3 rounded-full font-bold text-sm shadow-lg shadow-primary-500/20 transition-all"
+                className="flex items-center gap-2 bg-gradient-to-r from-violet-600 to-magenta-600 hover:from-violet-500 hover:to-magenta-500 text-white px-10 py-3.5 rounded-full font-bold text-sm shadow-[0_0_25px_rgba(124,58,237,0.4)] transition-all cursor-pointer"
               >
                 Go to My Dashboard <ArrowRight size={16} />
               </button>

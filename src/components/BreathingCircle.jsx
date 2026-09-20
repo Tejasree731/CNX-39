@@ -24,28 +24,58 @@ export default function BreathingCircle() {
     return () => clearTimeout(timer);
   }, [count, phase]);
 
+  const getPhaseColors = () => {
+    switch (phase) {
+      case 'Inhale':
+        return {
+          glow: 'rgba(124, 58, 237, 0.45)',
+          gradient: 'from-violet-600 via-purple-600 to-indigo-600',
+          indicator: 'bg-violet-500 shadow-[0_0_10px_#7c3aed]',
+          badge: 'text-violet-300 border-violet-500/30 bg-violet-500/10'
+        };
+      case 'Hold':
+        return {
+          glow: 'rgba(236, 72, 153, 0.5)',
+          gradient: 'from-fuchsia-600 via-pink-600 to-magenta-600',
+          indicator: 'bg-magenta-500 shadow-[0_0_10px_#ec4899]',
+          badge: 'text-pink-300 border-pink-500/30 bg-pink-500/10'
+        };
+      case 'Exhale':
+      default:
+        return {
+          glow: 'rgba(16, 192, 122, 0.45)',
+          gradient: 'from-teal-600 via-secondary-500 to-emerald-600',
+          indicator: 'bg-secondary-400 shadow-[0_0_10px_#10c07a]',
+          badge: 'text-secondary-300 border-secondary-500/30 bg-secondary-500/10'
+        };
+    }
+  };
+
+  const colors = getPhaseColors();
+
   return (
-    <div className="flex flex-col items-center justify-center p-8 bg-white dark:bg-darkcard rounded-[3.5rem] border border-gray-100 dark:border-darkborder shadow-sm overflow-hidden relative">
-      <div className="absolute top-0 left-0 w-full h-full bg-primary-500/5 pointer-events-none" />
+    <div className="flex flex-col items-center justify-center p-8 bg-[#0d0a1a] rounded-[3rem] border border-[#1e1535] shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_20px_rgba(124,58,237,0.15)] overflow-hidden relative">
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-violet-500/5 via-transparent to-transparent pointer-events-none" />
       
       <div className="relative w-64 h-64 flex items-center justify-center">
         {/* Outer Glow */}
         <motion.div
           animate={{ 
-            scale: phase === 'Inhale' ? 1.5 : phase === 'Hold' ? 1.5 : 1,
-            opacity: phase === 'Inhale' ? 0.3 : 0.1
+            scale: phase === 'Inhale' ? 1.6 : phase === 'Hold' ? 1.6 : 1,
+            opacity: phase === 'Inhale' ? 0.6 : phase === 'Hold' ? 0.7 : 0.2
           }}
           transition={{ duration: phase === 'Hold' ? 0 : 4, ease: "easeInOut" }}
-          className="absolute w-44 h-44 bg-primary-400 rounded-full blur-3xl"
+          style={{ backgroundColor: colors.glow }}
+          className="absolute w-44 h-44 rounded-full blur-3xl transition-colors duration-700"
         />
 
         {/* The Circle */}
         <motion.div
           animate={{ 
-            scale: phase === 'Inhale' ? 1.5 : phase === 'Hold' ? 1.5 : 1,
+            scale: phase === 'Inhale' ? 1.4 : phase === 'Hold' ? 1.4 : 1,
           }}
           transition={{ duration: phase === 'Hold' ? 0 : 4, ease: "easeInOut" }}
-          className="w-32 h-32 bg-gradient-to-br from-primary-500 to-indigo-600 rounded-full shadow-2xl flex items-center justify-center z-10"
+          className={`w-32 h-32 bg-gradient-to-br ${colors.gradient} rounded-full shadow-[0_0_30px_rgba(0,0,0,0.6)] flex items-center justify-center z-10 border border-white/20 transition-all duration-700`}
         >
           <AnimatePresence mode="wait">
             <motion.span
@@ -53,7 +83,7 @@ export default function BreathingCircle() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="text-white font-black text-xl italic"
+              className="text-white font-black text-lg tracking-wider uppercase drop-shadow-md"
             >
               {phase}
             </motion.span>
@@ -61,15 +91,24 @@ export default function BreathingCircle() {
         </motion.div>
       </div>
 
-      <div className="mt-12 text-center relative z-20">
-        <p className="text-4xl font-black text-gray-900 dark:text-white mb-2">{count}</p>
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Seconds remaining</p>
+      <div className="mt-8 text-center relative z-20">
+        <p className="text-5xl font-black bg-gradient-to-r from-violet-300 via-fuchsia-200 to-white bg-clip-text text-transparent mb-1">
+          {count}
+        </p>
+        <span className={`inline-block px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest border transition-all duration-500 ${colors.badge}`}>
+          Seconds remaining
+        </span>
       </div>
       
-      <div className="mt-8 flex gap-2">
-         {[1,2,3].map(i => (
-           <div key={i} className={`w-1.5 h-1.5 rounded-full ${phase === (i === 1 ? 'Inhale' : i === 2 ? 'Hold' : 'Exhale') ? 'bg-primary-500 w-4' : 'bg-gray-200 dark:bg-gray-800'} transition-all`} />
-         ))}
+      <div className="mt-6 flex gap-2 items-center">
+        {['Inhale', 'Hold', 'Exhale'].map((p) => (
+          <div 
+            key={p} 
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              phase === p ? `${colors.indicator} w-6` : 'bg-[#1e1535] w-2'
+            }`} 
+          />
+        ))}
       </div>
     </div>
   );

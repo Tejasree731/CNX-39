@@ -8,18 +8,18 @@ import {
 
 // ─── Mood config ──────────────────────────────────────────────────────────────
 const MOOD_CONFIG = {
-  Happy: { emoji: '😊', color: 'bg-yellow-100 text-yellow-700 border-yellow-200' },
-  Hopeful: { emoji: '🌱', color: 'bg-green-100 text-green-700 border-green-200' },
-  Grateful: { emoji: '🙏', color: 'bg-teal-100 text-teal-700 border-teal-200' },
-  Calm: { emoji: '😌', color: 'bg-blue-100 text-blue-700 border-blue-200' },
-  Confused: { emoji: '🤔', color: 'bg-orange-100 text-orange-700 border-orange-200' },
-  Anxious: { emoji: '😰', color: 'bg-amber-100 text-amber-700 border-amber-200' },
-  Overwhelmed: { emoji: '😵', color: 'bg-red-100 text-red-700 border-red-200' },
-  Sad: { emoji: '😢', color: 'bg-indigo-100 text-indigo-700 border-indigo-200' },
-  Lonely: { emoji: '🌧️', color: 'bg-slate-100 text-slate-700 border-slate-200' },
-  Angry: { emoji: '😤', color: 'bg-rose-100 text-rose-700 border-rose-200' },
-  Tired: { emoji: '😑', color: 'bg-rose-100 text-rose-700 border-rose-200' },
-  Jealous: { emoji: '😒', color: 'bg-rose-100 text-rose-700 border-rose-200' }
+  Happy: { emoji: '😊', color: 'bg-yellow-400/10 text-yellow-300 border-yellow-400/20' },
+  Hopeful: { emoji: '🌱', color: 'bg-green-400/10 text-green-300 border-green-400/20' },
+  Grateful: { emoji: '🙏', color: 'bg-teal-400/10 text-teal-300 border-teal-400/20' },
+  Calm: { emoji: '😌', color: 'bg-sky-400/10 text-sky-300 border-sky-400/20' },
+  Confused: { emoji: '🤔', color: 'bg-orange-400/10 text-orange-300 border-orange-400/20' },
+  Anxious: { emoji: '😰', color: 'bg-amber-400/10 text-amber-300 border-amber-400/20' },
+  Overwhelmed: { emoji: '😵', color: 'bg-red-400/10 text-red-300 border-red-400/20' },
+  Sad: { emoji: '😢', color: 'bg-indigo-400/10 text-indigo-300 border-indigo-400/20' },
+  Lonely: { emoji: '🌧️', color: 'bg-slate-400/10 text-slate-300 border-slate-400/20' },
+  Angry: { emoji: '😤', color: 'bg-rose-400/10 text-rose-300 border-rose-400/20' },
+  Tired: { emoji: '😑', color: 'bg-rose-400/10 text-rose-300 border-rose-400/20' },
+  Jealous: { emoji: '😒', color: 'bg-rose-400/10 text-rose-300 border-rose-400/20' }
 };
 
 const MOOD_SCORE_COLORS = {
@@ -62,14 +62,14 @@ function RecommendationCard({ item, type }) {
       href={searchLink}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col gap-1.5 p-3 rounded-2xl border border-gray-100 dark:border-darkborder bg-gray-50 dark:bg-darkbg hover:border-primary-300 hover:shadow-md transition-all"
+      className="group flex flex-col gap-1.5 p-3 rounded-2xl border border-obsidian-700 bg-obsidian-900/50 hover:border-cyan-500/40 hover:bg-obsidian-800/60 transition-all"
     >
       <div className="flex items-start justify-between gap-2">
-        <p className="font-bold text-sm text-gray-900 dark:text-white leading-tight">{item.title}</p>
-        <ChevronRight size={14} className="text-gray-400 group-hover:text-primary-500 shrink-0 mt-0.5 transition-colors" />
+        <p className="font-bold text-sm text-white leading-tight">{item.title}</p>
+        <ChevronRight size={14} className="text-obsidian-500 group-hover:text-cyan-400 shrink-0 mt-0.5 transition-colors" />
       </div>
-      {subtitle && <p className="text-xs text-primary-600 dark:text-primary-400 font-medium">{subtitle}</p>}
-      <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{item.reason}</p>
+      {subtitle && <p className="text-xs text-cyan-400 font-medium">{subtitle}</p>}
+      <p className="text-xs text-obsidian-400 leading-relaxed">{item.reason}</p>
     </a>
   );
 }
@@ -171,19 +171,21 @@ export default function Notes() {
     }));
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-darkbg">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 py-10 flex flex-col lg:flex-row gap-6 h-full">
 
         {/* ── LEFT: Notes List ── */}
         <div className="lg:w-80 shrink-0 flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <BookOpen className="text-primary-500 w-5 h-5" />
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">My Journal</h1>
+              <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500/30 to-teal-500/20 flex items-center justify-center border border-cyan-500/30">
+                <BookOpen className="text-cyan-400 w-4 h-4" />
+              </span>
+              <h1 className="text-xl font-black text-white">My Journal</h1>
             </div>
             <button
               onClick={() => { setComposing(true); setSelected(null); }}
-              className="flex items-center gap-1.5 bg-primary-600 hover:bg-primary-500 text-white px-3 py-2 rounded-full text-xs font-bold transition-colors shadow-md shadow-primary-500/20"
+              className="flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-3 py-2 rounded-full text-xs font-black transition-all shadow-md shadow-cyan-500/20 hover:scale-105 active:scale-95"
             >
               <Plus size={14} /> New Entry
             </button>
@@ -191,9 +193,9 @@ export default function Notes() {
 
           <div className="space-y-3 overflow-y-auto max-h-[calc(100vh-160px)] pr-1">
             {notes.length === 0 && !composing && (
-              <div className="text-center py-16 text-gray-400">
-                <BookOpen className="w-10 h-10 mx-auto mb-3 opacity-30" />
-                <p className="text-sm">No entries yet.<br />Write your first note!</p>
+              <div className="text-center py-16">
+                <BookOpen className="w-10 h-10 mx-auto mb-3 text-obsidian-700" />
+                <p className="text-sm text-obsidian-500">No entries yet.<br />Write your first note!</p>
               </div>
             )}
             {notes.map(note => {
@@ -205,12 +207,12 @@ export default function Notes() {
                   animate={{ opacity: 1, y: 0 }}
                   onClick={() => { setSelected(note); setComposing(false); }}
                   className={`w-full text-left p-4 rounded-2xl border transition-all ${selected?._id === note._id
-                      ? 'border-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                      : 'border-gray-100 dark:border-darkborder bg-white dark:bg-darkcard hover:border-primary-200 hover:shadow-sm'
+                      ? 'border-cyan-500/40 bg-cyan-500/10'
+                      : 'border-obsidian-700 bg-obsidian-800/60 hover:border-obsidian-500 hover:bg-obsidian-700/50'
                     }`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-1">
-                    <p className="font-bold text-sm text-gray-900 dark:text-white truncate">
+                    <p className="font-bold text-sm text-white truncate">
                       {note.title || 'Untitled Entry'}
                     </p>
                     {m && (
@@ -219,13 +221,13 @@ export default function Notes() {
                       </span>
                     )}
                     {!note.analysisComplete && (
-                      <span className="text-[11px] text-gray-400 flex items-center gap-1 shrink-0">
+                      <span className="text-[11px] text-obsidian-500 flex items-center gap-1 shrink-0">
                         <Loader2 size={11} className="animate-spin" /> Analyzing
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">{note.content}</p>
-                  <div className="flex items-center gap-1 mt-2 text-[11px] text-gray-400">
+                  <p className="text-xs text-obsidian-400 line-clamp-2">{note.content}</p>
+                  <div className="flex items-center gap-1 mt-2 text-[11px] text-obsidian-600">
                     <Calendar size={11} />
                     {formatDate(note.createdAt)}
                   </div>
@@ -246,14 +248,14 @@ export default function Notes() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="bg-white dark:bg-darkcard rounded-3xl border border-gray-100 dark:border-darkborder shadow-sm p-6 sm:p-8 h-full flex flex-col gap-4"
+                className="bg-obsidian-800/60 backdrop-blur-sm rounded-3xl border border-obsidian-700 shadow-2xl shadow-black/30 p-6 sm:p-8 h-full flex flex-col gap-4"
               >
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                    <Sparkles size={18} className="text-primary-500" /> New Entry
+                  <h2 className="text-lg font-black text-white flex items-center gap-2">
+                    <Sparkles size={18} className="text-cyan-400" /> New Entry
                   </h2>
-                  <button onClick={() => setComposing(false)} className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-darkbg">
-                    <X size={16} className="text-gray-400" />
+                  <button onClick={() => setComposing(false)} className="p-1.5 rounded-full hover:bg-obsidian-700 text-obsidian-400 hover:text-white transition-colors">
+                    <X size={16} />
                   </button>
                 </div>
 
@@ -262,7 +264,7 @@ export default function Notes() {
                   value={title}
                   onChange={e => setTitle(e.target.value)}
                   placeholder="Give this entry a title (optional)..."
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-darkbg text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-4 py-3 rounded-xl bg-obsidian-900/60 border border-obsidian-600 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 outline-none transition-all text-white placeholder-obsidian-500 text-sm"
                 />
 
                 <textarea
@@ -270,15 +272,15 @@ export default function Notes() {
                   value={content}
                   onChange={e => setContent(e.target.value)}
                   placeholder="How are you feeling today? Write freely — this is your safe space. The AI will read your entry and offer insights, coping tips, and content recommendations tailored just for you..."
-                  className="flex-1 w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-darkbg text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none min-h-[300px] leading-relaxed"
+                  className="flex-1 w-full px-4 py-3 rounded-xl bg-obsidian-900/60 border border-obsidian-600 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 outline-none transition-all text-white placeholder-obsidian-500 text-sm resize-none min-h-[300px] leading-relaxed"
                 />
 
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-400">{content.trim().split(/\s+/).filter(Boolean).length} words</span>
+                  <span className="text-xs text-obsidian-500">{content.trim().split(/\s+/).filter(Boolean).length} words</span>
                   <button
                     onClick={handleSave}
                     disabled={!content.trim() || saving}
-                    className="flex items-center gap-2 bg-primary-600 hover:bg-primary-500 disabled:opacity-50 text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all shadow-md shadow-primary-500/20"
+                    className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-teal-500 disabled:opacity-50 text-white px-6 py-2.5 rounded-full font-black text-sm transition-all shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95"
                   >
                     {saving ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
                     {saving ? 'Saving...' : 'Analyse & Save'}
@@ -294,28 +296,28 @@ export default function Notes() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="bg-white dark:bg-darkcard rounded-3xl border border-gray-100 dark:border-darkborder shadow-sm p-6 sm:p-8 flex flex-col gap-6 overflow-y-auto max-h-[calc(100vh-120px)]"
+                className="bg-obsidian-800/60 backdrop-blur-sm rounded-3xl border border-obsidian-700 shadow-2xl shadow-black/30 p-6 sm:p-8 flex flex-col gap-6 overflow-y-auto max-h-[calc(100vh-120px)]"
               >
                 {/* Header */}
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                    <h2 className="text-xl font-black text-white">
                       {selected.title || 'Untitled Entry'}
                     </h2>
-                    <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
+                    <p className="text-xs text-obsidian-500 mt-1 flex items-center gap-1">
                       <Calendar size={11} /> {formatDate(selected.createdAt)}
                     </p>
                   </div>
                   <button
                     onClick={() => handleDelete(selected._id)}
-                    className="p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 text-gray-400 hover:text-red-500 transition-colors"
+                    className="p-2 rounded-full hover:bg-red-500/10 text-obsidian-500 hover:text-red-400 transition-colors"
                   >
                     <Trash2 size={16} />
                   </button>
                 </div>
 
                 {/* Note body */}
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap text-sm">
+                <p className="text-obsidian-300 leading-relaxed whitespace-pre-wrap text-sm">
                   {selected.content}
                 </p>
 
@@ -323,7 +325,7 @@ export default function Notes() {
                 {selected.categories?.length > 0 && (
                   <div className="flex flex-wrap gap-2">
                     {selected.categories.map(cat => (
-                      <span key={cat} className="flex items-center gap-1 text-[11px] font-bold bg-gray-100 dark:bg-darkbg text-gray-600 dark:text-gray-400 px-3 py-1 rounded-full">
+                      <span key={cat} className="flex items-center gap-1 text-[11px] font-bold bg-obsidian-700 text-obsidian-400 px-3 py-1 rounded-full border border-obsidian-600">
                         <Hash size={10} /> {cat.replace(/_/g, ' ')}
                       </span>
                     ))}
@@ -332,47 +334,45 @@ export default function Notes() {
 
                 {/* AI Analysis */}
                 {!selected.analysisComplete ? (
-                  <div className="flex items-center gap-3 p-4 rounded-2xl bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-900/40">
-                    <Loader2 size={20} className="text-primary-500 animate-spin shrink-0" />
+                  <div className="flex items-center gap-3 p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20">
+                    <Loader2 size={20} className="text-cyan-400 animate-spin shrink-0" />
                     <div>
-                      <p className="text-sm font-bold text-primary-700 dark:text-primary-400">AI is analysing your entry...</p>
-                      <p className="text-xs text-primary-500 mt-0.5">Mood, insights, and recommendations will appear shortly.</p>
+                      <p className="text-sm font-bold text-cyan-300">AI is analysing your entry...</p>
+                      <p className="text-xs text-cyan-500/70 mt-0.5">Mood, insights, and recommendations will appear shortly.</p>
                     </div>
                   </div>
                 ) : (
                   <>
                     {/* Mood + Score */}
                     {mood && (
-                      <div className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-darkbg border border-gray-100 dark:border-darkborder">
+                      <div className="flex items-center gap-4 p-4 rounded-2xl bg-obsidian-900/60 border border-obsidian-700">
                         <div className="text-4xl">{mood.emoji}</div>
                         <div className="flex-1">
-                          <div className="flex items-center justify-between">
-                            <span className={`text-sm font-bold px-3 py-0.5 rounded-full border ${mood.color}`}>{selected.mood}</span>
-                          </div>
+                          <span className={`text-sm font-bold px-3 py-1 rounded-full border ${mood.color}`}>{selected.mood}</span>
                         </div>
                       </div>
                     )}
 
                     {/* AI Insight */}
                     {selected.aiInsight && (
-                      <div className="p-5 rounded-2xl bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/10 border border-primary-100 dark:border-primary-900/30">
+                      <div className="p-5 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-teal-500/5 border border-cyan-500/20">
                         <div className="flex items-center gap-2 mb-2">
-                          <Sparkles size={16} className="text-primary-500" />
-                          <span className="text-xs font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wider">AI Insight</span>
+                          <Sparkles size={16} className="text-cyan-400" />
+                          <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider">AI Insight</span>
                         </div>
-                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed italic">"{selected.aiInsight}"</p>
+                        <p className="text-sm text-obsidian-300 leading-relaxed italic">"{selected.aiInsight}"</p>
                       </div>
                     )}
 
                     {/* Suggestions */}
                     {selected.suggestions?.length > 0 && (
                       <div>
-                        <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-3">💡 Coping Suggestions</h3>
+                        <h3 className="text-sm font-black text-white mb-3">💡 Coping Suggestions</h3>
                         <div className="space-y-2">
                           {selected.suggestions.map((s, i) => (
-                            <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-gray-50 dark:bg-darkbg border border-gray-100 dark:border-darkborder">
-                              <span className="text-primary-500 font-black text-sm shrink-0">{i + 1}.</span>
-                              <p className="text-sm text-gray-700 dark:text-gray-300">{s}</p>
+                            <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-obsidian-900/60 border border-obsidian-700">
+                              <span className="text-cyan-400 font-black text-sm shrink-0">{i + 1}.</span>
+                              <p className="text-sm text-obsidian-300">{s}</p>
                             </div>
                           ))}
                         </div>
@@ -382,16 +382,15 @@ export default function Notes() {
                     {/* Recommendations */}
                     {Object.keys(recommendations).some(k => recommendations[k]?.length > 0) && (
                       <div>
-                        <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-3">🎯 Curated For You</h3>
-                        {/* Tabs */}
-                        <div className="flex gap-1 mb-4 bg-gray-100 dark:bg-darkbg p-1 rounded-xl overflow-x-auto">
+                        <h3 className="text-sm font-black text-white mb-3">🎯 Curated For You</h3>
+                        <div className="flex gap-1 mb-4 bg-obsidian-900/60 p-1 rounded-xl overflow-x-auto border border-obsidian-700">
                           {REC_TABS.filter(tab => (recommendations[tab.key]?.length || 0) > 0).map(tab => (
                             <button
                               key={tab.key}
                               onClick={() => setActiveTab(tab.key)}
                               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${activeTab === tab.key
-                                  ? 'bg-white dark:bg-darkcard text-primary-600 dark:text-primary-400 shadow-sm'
-                                  : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                                  ? 'bg-obsidian-700 text-cyan-400 shadow-sm border border-obsidian-600'
+                                  : 'text-obsidian-500 hover:text-obsidian-200'
                                 }`}
                             >
                               {tab.icon} {tab.label}
@@ -421,57 +420,57 @@ export default function Notes() {
                 {notes.length === 0 ? (
                   <div className="flex items-center justify-center h-full">
                     <div className="text-center">
-                      <div className="w-20 h-20 bg-primary-50 dark:bg-primary-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <BookOpen className="w-9 h-9 text-primary-400" />
+                      <div className="w-20 h-20 bg-gradient-to-br from-cyan-500/20 to-teal-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-cyan-500/20">
+                        <BookOpen className="w-9 h-9 text-cyan-400" />
                       </div>
-                      <h3 className="text-lg font-bold text-gray-700 dark:text-gray-300 mb-2">Your journal is empty</h3>
-                      <p className="text-sm text-gray-400 mb-6">Write freely — the AI will analyse your mood and suggest movies, books, songs and more.</p>
+                      <h3 className="text-lg font-black text-white mb-2">Your journal is empty</h3>
+                      <p className="text-sm text-obsidian-400 mb-6">Write freely — the AI will analyse your mood and suggest movies, books, songs and more.</p>
                       <button
                         onClick={() => setComposing(true)}
-                        className="bg-primary-600 hover:bg-primary-500 text-white px-6 py-3 rounded-full font-bold text-sm transition-all shadow-md shadow-primary-500/20 flex items-center gap-2 mx-auto"
+                        className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-6 py-3 rounded-full font-black text-sm transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2 mx-auto hover:scale-105 active:scale-95"
                       >
                         <Plus size={16} /> Write First Entry
                       </button>
                     </div>
                   </div>
                 ) : (
-                  <div className="bg-white dark:bg-darkcard rounded-3xl border border-gray-100 dark:border-darkborder shadow-sm p-6 sm:p-8 flex flex-col h-full">
+                  <div className="bg-obsidian-800/60 backdrop-blur-sm rounded-3xl border border-obsidian-700 shadow-2xl shadow-black/30 p-6 sm:p-8 flex flex-col h-full">
                     <div className="flex justify-between items-center mb-8">
                        <div>
-                         <h2 className="text-2xl font-black text-gray-900 dark:text-white flex items-center gap-2">
-                           <Sparkles size={24} className="text-primary-500" /> Emotional Landscape
+                         <h2 className="text-2xl font-black text-white flex items-center gap-2">
+                           <Sparkles size={24} className="text-cyan-400" /> Emotional Landscape
                          </h2>
-                         <p className="text-xs text-gray-400 font-bold uppercase tracking-widest mt-1">Your recent mood journey</p>
+                         <p className="text-xs text-obsidian-500 font-bold uppercase tracking-widest mt-1">Your recent mood journey</p>
                        </div>
                     </div>
-                    
+
                     {chartData.length > 0 ? (
                       <div className="flex-1 w-full min-h-[300px]">
                         <ResponsiveContainer width="100%" height="100%">
                           <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                             <defs>
                               <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3}/>
-                                <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
+                                <stop offset="5%" stopColor="#22d3ee" stopOpacity={0.4}/>
+                                <stop offset="95%" stopColor="#22d3ee" stopOpacity={0}/>
                               </linearGradient>
                             </defs>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" strokeOpacity={0.5} />
-                            <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#9ca3af' }} dy={10} />
-                            <YAxis domain={[0, 10]} axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#9ca3af' }} />
+                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#2d3748" strokeOpacity={0.8} />
+                            <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} dy={10} />
+                            <YAxis domain={[0, 10]} axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} />
                             <Tooltip
-                              contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', fontSize: '12px', fontWeight: 700 }}
-                              labelStyle={{ color: '#6b7280', marginBottom: '4px' }}
+                              contentStyle={{ borderRadius: '16px', border: '1px solid #334155', background: '#1e293b', color: '#e2e8f0', fontSize: '12px', fontWeight: 700 }}
+                              labelStyle={{ color: '#94a3b8', marginBottom: '4px' }}
                               formatter={(value, name, props) => {
                                 const m = MOOD_CONFIG[props.payload.mood];
-                                return [value + '/10 ' + (m ? m.emoji : ''), 'Mood ' + props.payload.mood];
+                                return [value + '/10 ' + (m ? m.emoji : ''), 'Mood: ' + props.payload.mood];
                               }}
                             />
-                            <Area type="monotone" dataKey="score" stroke="#8b5cf6" strokeWidth={3} fillOpacity={1} fill="url(#colorScore)" />
+                            <Area type="monotone" dataKey="score" stroke="#22d3ee" strokeWidth={2.5} fillOpacity={1} fill="url(#colorScore)" />
                           </AreaChart>
                         </ResponsiveContainer>
                       </div>
                     ) : (
-                      <div className="flex-1 flex items-center justify-center text-sm text-gray-400">
+                      <div className="flex-1 flex items-center justify-center text-sm text-obsidian-500">
                          Write more entries to generate your visual journey!
                       </div>
                     )}

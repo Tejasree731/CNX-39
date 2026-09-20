@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { ShieldX, ShieldCheck, Activity, LineChart, Users, ArrowRight, HeartPulse, UserPlus, Info, Smartphone, EyeOff } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { 
+  ShieldCheck, 
+  HeartPulse, 
+  BrainCircuit, 
+  Activity, 
+  Users, 
+  ArrowRight, 
+  UserPlus, 
+  EyeOff, 
+  Gamepad2, 
+  BookOpen, 
+  Clock, 
+  Flame, 
+  CheckCircle2, 
+  MessageCircle, 
+  Sparkles,
+  Lock,
+  ChevronRight,
+  HelpCircle,
+  Award,
+  Globe
+} from 'lucide-react';
 
 const FadeIn = ({ children, delay = 0, className = "" }) => (
   <motion.div
-    initial={{ opacity: 0, y: 40 }}
+    initial={{ opacity: 0, y: 25 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-50px" }}
-    transition={{ duration: 0.7, delay, ease: "easeOut" }}
+    viewport={{ once: true, margin: "-40px" }}
+    transition={{ duration: 0.5, delay, ease: "easeOut" }}
     className={className}
   >
     {children}
@@ -17,234 +39,376 @@ const FadeIn = ({ children, delay = 0, className = "" }) => (
 
 export default function Home() {
   const { t } = useTranslation();
+  const [liveClock, setLiveClock] = useState('');
+
+  useEffect(() => {
+    const update = () => {
+      const now = new Date();
+      setLiveClock(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+    };
+    update();
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <>
-        {/* 2. HERO SECTION */}
-        <section className="relative pt-24 pb-32 overflow-hidden bg-gradient-to-b from-primary-50 to-white dark:from-darkbg dark:to-darkcard">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <FadeIn>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-100 text-secondary-600 dark:bg-secondary-900/30 dark:text-secondary-400 text-sm font-medium mb-6">
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-secondary-500"></span>
-                  </span>
-                  {t('hero.badge')}
-                </div>
-                <h1 className="text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-                  {t('hero.title_part1')} <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500">{t('hero.title_wellbeing')}</span>
-                </h1>
-                <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-lg leading-relaxed">
-                  {t('hero.description')}
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <button className="bg-primary-600 hover:bg-primary-500 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-primary-500/30 transition-all transform hover:-translate-y-1 flex items-center gap-2">
-                    {t('hero.get_support')} <ArrowRight size={18} />
-                  </button>
-                  <button className="bg-white dark:bg-darkborder hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white px-8 py-3.5 rounded-full font-semibold outline outline-1 outline-gray-200 dark:outline-gray-600 shadow-sm transition-all transform hover:-translate-y-1">
-                    {t('hero.become_volunteer')}
-                  </button>
-                </div>
-              </FadeIn>
-              
-              <FadeIn delay={0.2} className="relative hidden lg:block">
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary-200 to-secondary-200 dark:from-primary-900/40 dark:to-secondary-900/40 rounded-[3rem] transform rotate-3 scale-105 -z-10 blur-xl opacity-60"></div>
-                <img src="/mainpage1.png" alt="Youth community support illustration" className="w-full h-auto drop-shadow-2xl rounded-3xl" />
-              </FadeIn>
-            </div>
+    <div className="bg-violet-50 dark:bg-[#07050f] text-gray-800 dark:text-violet-100 transition-colors duration-300">
+      
+      {/* ─── 1. HERO BENTO SHOWCASE ────────────────────────────────────────────── */}
+      <section className="pt-10 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        
+        {/* Top Ticker Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6 px-1">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-primary-200 dark:border-violet-900/50 bg-primary-50 dark:bg-violet-950/40 text-primary-700 dark:text-violet-400 text-xs font-mono font-bold shadow-[2px_2px_0_0_#6d28d9]">
+            <span className="w-2 h-2 rounded-full bg-secondary-500 animate-pulse" />
+            <span>SVASTHYA PLATFORM v2.5 ● LIVE</span>
           </div>
-        </section>
 
-        {/* 3. WHY THIS MATTERS (PROBLEM CONTEXT) */}
-        <section id="why-it-matters" className="py-24 bg-white dark:bg-darkcard border-t border-gray-100 dark:border-darkborder/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeIn className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">{t('navbar.why_it_matters', 'Why This Matters')}</h2>
-              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-                Young people today face mounting emotional stress from academic pressure, social expectations, and family dynamics. 
-                Mental health stigma continues to be the biggest barrier. Many who need help do not seek it, simply because the environment does not feel safe enough.
+          <div className="flex items-center gap-4 text-xs font-mono text-gray-500 dark:text-violet-400/60">
+            <span className="hidden sm:inline">GLOBAL SAFE HAVEN</span>
+            <span className="border-l border-gray-300 dark:border-violet-800 pl-4">LOCAL TIME: {liveClock}</span>
+          </div>
+        </div>
+
+        {/* Master Bento Grid Hero */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 auto-rows-auto">
+          
+          {/* Bento Card 1: Main Mission Banner (Hero Anchor) */}
+          <div className="lg:col-span-7 bg-white dark:bg-[#0d0a1a] p-6 sm:p-10 rounded-2xl border border-violet-100 dark:border-[#1e1535] shadow-[3px_3px_0_0_#1a1030] dark:shadow-[3px_3px_0_0_rgba(124,58,237,0.2)] flex flex-col justify-between relative overflow-hidden">
+            <div className="space-y-4 relative z-10">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md border border-violet-300 dark:border-violet-700 bg-violet-100 dark:bg-violet-900/30 text-[10px] font-mono font-bold uppercase tracking-wider text-violet-700 dark:text-violet-300 shadow-[1px_1px_0_0_#1a1030]">
+                <Sparkles size={12} className="text-primary-500 dark:text-violet-400" /> Safe Space for Youth
+              </div>
+
+              <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-gray-900 dark:text-white leading-[1.15]">
+                Empathetic Tech for <br className="hidden sm:block" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 via-fuchsia-400 to-pink-400">
+                  Adolescent Wellbeing.
+                </span>
+              </h1>
+
+              <p className="text-sm sm:text-base text-gray-600 dark:text-violet-300/70 max-w-xl leading-relaxed">
+                An AI-guided sanctuary where youth express emotions without judgment, connect with trained peer mentors, track resilience milestones, and access clinical psychometrics.
               </p>
-            </FadeIn>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <FadeIn delay={0.1}>
-                <div className="bg-primary-50 dark:bg-darkbg rounded-3xl p-8 text-center h-full hover:shadow-md transition-shadow">
-                  <div className="text-5xl font-black text-primary-600 dark:text-primary-400 mb-4">50%</div>
-                  <p className="text-gray-700 dark:text-gray-300 font-medium">of mental health conditions begin before age 14</p>
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.2}>
-                <div className="bg-secondary-50 dark:bg-darkbg rounded-3xl p-8 text-center h-full hover:shadow-md transition-shadow">
-                  <div className="text-5xl font-black text-secondary-600 dark:text-secondary-400 mb-4">90%</div>
-                  <p className="text-gray-700 dark:text-gray-300 font-medium">of affected youth in low-income settings receive no mental health care</p>
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.3}>
-                <div className="bg-blue-50 dark:bg-darkbg rounded-3xl p-8 text-center h-full hover:shadow-md transition-shadow">
-                  <div className="text-5xl font-black text-blue-600 dark:text-blue-400 mb-4">1 <span className="text-3xl">in</span> 7</div>
-                  <p className="text-gray-700 dark:text-gray-300 font-medium">adolescents globally experience a mental health condition</p>
-                </div>
-              </FadeIn>
             </div>
-          </div>
-        </section>
 
-        {/* 4. WHAT ARE WE SOLVING? (CHALLENGES) */}
-        <section className="py-24 bg-slate-50 dark:bg-darkbg">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">{t('home.challenges_title', 'What Challenges Are We Addressing?')}</h2>
+            <div className="pt-8 flex flex-wrap items-center gap-3 relative z-10">
+              <Link to="/signup" className="btn-tactile-accent px-6 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2">
+                {t('hero.get_support', 'Get Free Support')} <ArrowRight size={16} />
+              </Link>
+              <Link to="/#solutions" className="btn-tactile px-5 py-2.5 rounded-xl text-sm font-bold text-gray-800 dark:text-violet-200">
+                Explore Modules
+              </Link>
+              <div className="text-[11px] font-mono text-gray-500 dark:text-violet-400/60 sm:ml-2">
+                100% Free & Confidential
+              </div>
+            </div>
+
+            {/* Ambient Background Glow */}
+            <div className="absolute -bottom-16 -right-16 w-52 h-52 bg-violet-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -top-8 -left-8 w-32 h-32 bg-fuchsia-500/8 rounded-full blur-3xl pointer-events-none" />
+          </div>
+
+          {/* Bento Card 2: Interactive AI Empathy Preview */}
+          <div className="lg:col-span-5 bg-white dark:bg-[#0d0a1a] p-6 rounded-2xl border border-violet-100 dark:border-[#1e1535] shadow-[3px_3px_0_0_#1a1030] dark:shadow-[3px_3px_0_0_rgba(124,58,237,0.2)] flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-600 text-white flex items-center justify-center font-bold text-sm shadow-[2px_2px_0_0_#1a1030]">
+                    <BrainCircuit size={18} />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold leading-tight dark:text-white">Svasthya AI Companion</h3>
+                    <p className="text-[10px] font-mono text-secondary-500 dark:text-secondary-400 font-bold">● Active Listening Engine</p>
+                  </div>
+                </div>
+                <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded border border-primary-300 dark:border-violet-800 bg-primary-50 dark:bg-violet-950/40 text-primary-600 dark:text-violet-400">
+                  Gemini 2.5
+                </span>
+              </div>
+
+              {/* Chat Simulation */}
+              <div className="space-y-2.5 my-3">
+                <div className="bg-gray-50 dark:bg-[#13102a] p-3 rounded-xl border border-violet-100 dark:border-[#1e1535] text-xs">
+                  <p className="font-mono text-[9px] text-gray-400 dark:text-violet-400/60 mb-1 uppercase font-bold">Anonymous Youth</p>
+                  <p className="text-gray-700 dark:text-violet-200">"Exam pressure is piling up and I feel constantly on edge..."</p>
+                </div>
+                <div className="bg-primary-50/70 dark:bg-violet-950/30 p-3 rounded-xl border border-primary-200 dark:border-violet-900/50 text-xs">
+                  <p className="font-mono text-[9px] text-primary-600 dark:text-violet-400 mb-1 uppercase font-bold">Svasthya AI Response</p>
+                  <p className="text-gray-800 dark:text-violet-200">
+                    "It's completely understandable to feel overwhelmed. Let's do a 2-minute 4-7-8 breathing pause to reset your nervous system first."
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent('svasthya-open-chat'))}
+              className="btn-tactile w-full py-2 rounded-xl text-xs font-bold text-primary-600 dark:text-violet-400 flex items-center justify-center gap-1.5 cursor-pointer mt-2"
+            >
+              <MessageCircle size={14} /> Chat Anonymously With AI →
+            </button>
+          </div>
+
+          {/* Bento Card 3: MAGENTA POP CARD (Daily Check-in) — replaces coral */}
+          <div className="lg:col-span-3 bg-gradient-to-br from-[#ec4899] to-[#a855f7] text-white p-5 rounded-2xl border-2 border-[#1a1030] shadow-[3px_3px_0_0_#1a1030] dark:shadow-[3px_3px_0_0_rgba(236,72,153,0.4)] flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1">
+                <Flame size={14} /> Mood Vitals
+              </span>
+              <span className="text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded border border-white/40 bg-white/20 shadow-[1px_1px_0_0_rgba(0,0,0,0.2)]">
+                Daily
+              </span>
+            </div>
+
+            <div className="flex items-center justify-around my-2">
+              <div className="text-center">
+                <div className="bg-white/20 border border-white/40 px-3 py-1 rounded-lg font-mono font-black text-lg shadow-[2px_2px_0_0_rgba(0,0,0,0.2)]">
+                  7d
+                </div>
+                <span className="text-[9px] font-bold uppercase mt-0.5 block opacity-80">Streak</span>
+              </div>
+              <div className="w-px h-8 bg-white/30" />
+              <div className="text-center">
+                <div className="bg-white/20 border border-white/40 px-3 py-1 rounded-lg font-mono font-black text-lg shadow-[2px_2px_0_0_rgba(0,0,0,0.2)]">
+                  4.8/5
+                </div>
+                <span className="text-[9px] font-bold uppercase mt-0.5 block opacity-80">Calm Score</span>
+              </div>
+            </div>
+
+            <p className="text-[10px] font-bold border-t border-white/20 pt-2 flex items-center justify-between">
+              <span>Reflective Journal</span>
+              <Link to="/notes" className="underline hover:opacity-80 transition-opacity">Open Notes →</Link>
+            </p>
+          </div>
+
+          {/* Bento Card 4: Psychometric Lab Card */}
+          <div className="lg:col-span-3 bg-white dark:bg-[#0d0a1a] p-5 rounded-2xl border border-violet-100 dark:border-[#1e1535] shadow-[3px_3px_0_0_#1a1030] dark:shadow-[3px_3px_0_0_rgba(124,58,237,0.2)] flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-500 dark:text-violet-400/60">Clinical Psychometrics</p>
+                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-secondary-500/40 text-secondary-600 dark:text-secondary-400 bg-secondary-50 dark:bg-secondary-950/30 font-bold">Standardized</span>
+              </div>
+              <h3 className="text-base font-bold text-gray-900 dark:text-white">GAD-7 & PHQ-9</h3>
+              <p className="text-xs text-gray-500 dark:text-violet-300/50 mt-1">
+                Validated psychological screeners with automated resilience reporting.
+              </p>
+            </div>
+            <Link to="/assessments" className="btn-tactile w-full py-1.5 rounded-xl text-xs font-bold text-center mt-3 block">
+              Take Free Assessment →
+            </Link>
+          </div>
+
+          {/* Bento Card 5: Zen Hub Mindfulness Mini-Preview */}
+          <div className="lg:col-span-3 bg-white dark:bg-[#0d0a1a] p-5 rounded-2xl border border-violet-100 dark:border-[#1e1535] shadow-[3px_3px_0_0_#1a1030] dark:shadow-[3px_3px_0_0_rgba(124,58,237,0.2)] flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-500 dark:text-violet-400/60">Mindfulness Engine</p>
+                <Gamepad2 size={16} className="text-primary-500 dark:text-violet-400" />
+              </div>
+              <h3 className="text-base font-bold text-gray-900 dark:text-white">Zen Hub Rituals</h3>
+              <p className="text-xs text-gray-500 dark:text-violet-300/50 mt-1">
+                Interactive breathing visualizer & cognitive refocusing mini-rituals.
+              </p>
+            </div>
+            <Link to="/relax" className="btn-tactile w-full py-1.5 rounded-xl text-xs font-bold text-center mt-3 block">
+              Launch Zen Play →
+            </Link>
+          </div>
+
+          {/* Bento Card 6: Community & Safe Anonymity */}
+          <div className="lg:col-span-3 bg-white dark:bg-[#0d0a1a] p-5 rounded-2xl border border-violet-100 dark:border-[#1e1535] shadow-[3px_3px_0_0_#1a1030] dark:shadow-[3px_3px_0_0_rgba(124,58,237,0.2)] flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-500 dark:text-violet-400/60">Zero-Stigma</p>
+                <Lock size={14} className="text-secondary-500 dark:text-secondary-400" />
+              </div>
+              <h3 className="text-base font-bold text-gray-900 dark:text-white">Peer Circles</h3>
+              <p className="text-xs text-gray-500 dark:text-violet-300/50 mt-1">
+                Moderated anonymous forums and 1-on-1 connections with trained peer mentors.
+              </p>
+            </div>
+            <Link to="/community" className="btn-tactile w-full py-1.5 rounded-xl text-xs font-bold text-center mt-3 block">
+              Join Communities →
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ─── 2. WHY THIS MATTERS (STATISTICAL BENTO MATRIX) ───────────────────────── */}
+      <section id="why-it-matters" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-violet-100 dark:border-[#1e1535]">
+        <FadeIn className="text-center max-w-3xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md border border-violet-300 dark:border-violet-700 bg-violet-100 dark:bg-violet-900/30 text-[10px] font-mono font-bold uppercase tracking-wider text-violet-700 dark:text-violet-300 mb-3 shadow-[1px_1px_0_0_#1a1030]">
+            Evidence-Based Urgency
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white tracking-tight">
+            {t('navbar.why_it_matters', 'Why Early Intervention Matters')}
+          </h2>
+          <p className="text-sm text-gray-600 dark:text-violet-300/60 mt-3 leading-relaxed">
+            Mental health stigma and fear of judgment continue to prevent youth from seeking timely support.
+          </p>
+        </FadeIn>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { stat: '50%', label: 'Of conditions begin before age 14', sub: 'Early intervention changes lifelong trajectory', color: 'text-violet-600 dark:text-violet-400', border: 'border-violet-500/30 dark:border-violet-700/50', bg: 'dark:bg-violet-950/20' },
+            { stat: '90%', label: 'Underserved in vulnerable groups', sub: 'Lack of accessible mental healthcare', color: 'text-rose-600 dark:text-rose-400', border: 'border-rose-500/30', bg: 'dark:bg-rose-950/10' },
+            { stat: '1 in 7', label: 'Adolescents face emotional distress', sub: 'Global WHO mental health index', color: 'text-amber-600 dark:text-amber-400', border: 'border-amber-500/30', bg: 'dark:bg-amber-950/10' },
+            { stat: '100%', label: 'Anonymous & Zero-Trace', sub: 'No real identity required to get help', color: 'text-secondary-600 dark:text-secondary-400', border: 'border-secondary-500/30', bg: 'dark:bg-secondary-950/10' },
+          ].map((item, idx) => (
+            <FadeIn key={idx} delay={idx * 0.1}>
+              <div className={`bg-white dark:bg-[#0d0a1a] ${item.bg} p-6 rounded-2xl border ${item.border} shadow-[3px_3px_0_0_#1a1030] dark:shadow-[3px_3px_0_0_rgba(124,58,237,0.1)] h-full flex flex-col justify-between`}>
+                <div className={`text-4xl font-mono font-black ${item.color} mb-2`}>
+                  {item.stat}
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug">{item.label}</h3>
+                  <p className="text-[11px] text-gray-500 dark:text-violet-300/50 mt-1">{item.sub}</p>
+                </div>
+              </div>
             </FadeIn>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              {[
-                { title: 'No Safe Spaces', desc: 'Many young people lack stigma-free environments where they can openly share emotional struggles. Fear of judgment prevents them from seeking support.', icon: <ShieldX /> },
-                { title: 'Resource Inaccessibility', desc: 'Mental health awareness tools, counseling support, and early wellbeing resources are unavailable in many schools and communities.', icon: <Info /> },
-                { title: 'Absence of Early Intervention', desc: 'Mental health issues often escalate because there are no systems to identify early warning signs or provide timely guidance.', icon: <Activity /> },
-                { title: 'NGO Visibility Gap', desc: 'Organizations working to support youth lack structured data and insights needed to monitor youth wellbeing and measure intervention impact.', icon: <LineChart /> }
-              ].map((card, i) => (
-                <FadeIn key={i} delay={i * 0.1}>
-                  <div className="bg-white dark:bg-darkcard p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 dark:border-darkborder/50">
-                    <div className="w-14 h-14 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all">
+          ))}
+        </div>
+      </section>
+
+      {/* ─── 3. PLATFORM SOLUTIONS (BENTO SOUNDBOARD) ─────────────────────────────── */}
+      <section id="solutions" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-violet-100 dark:border-[#1e1535]">
+        <FadeIn className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-10">
+          <div>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-primary-600 dark:text-violet-400 block mb-1">
+              Multi-Role Ecosystem
+            </span>
+            <h2 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">
+              {t('home.solution_title', 'What This Platform Delivers')}
+            </h2>
+          </div>
+          <div className="text-xs font-mono text-gray-500 dark:text-violet-400/50">
+            4 INTEGRATED PATHWAYS
+          </div>
+        </FadeIn>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            {
+              title: 'Youth Wellbeing Hub',
+              desc: 'Self-guided assessments, mood tracking, reflective journaling, and real-time planning.',
+              icon: <Activity className="text-violet-500" size={24} />,
+              tag: 'Personal Journey',
+              path: '/dashboard',
+              accent: 'violet'
+            },
+            {
+              title: 'Peer Mentorship',
+              desc: 'Trained adolescent leaders offering empathetic guidance and community moderation.',
+              icon: <Users className="text-secondary-500" size={24} />,
+              tag: 'Community',
+              path: '/community',
+              accent: 'jade'
+            },
+            {
+              title: 'Clinical Tele-Sessions',
+              desc: 'Direct connection to licensed therapists with automated availability guards and booking.',
+              icon: <HeartPulse className="text-magenta-500 dark:text-pink-400" size={24} />,
+              tag: 'Professional',
+              path: '/community',
+              accent: 'magenta'
+            },
+            {
+              title: 'NGO Oversight & Data',
+              desc: 'Aggregated analytics and impact indices enabling partner NGOs to measure youth resilience.',
+              icon: <ShieldCheck className="text-amber-500" size={24} />,
+              tag: 'Impact Analytics',
+              path: '/admin',
+              accent: 'amber'
+            }
+          ].map((card, i) => (
+            <FadeIn key={i} delay={i * 0.1}>
+              <div className="bg-white dark:bg-[#0d0a1a] p-6 rounded-2xl border border-violet-100 dark:border-[#1e1535] shadow-[3px_3px_0_0_#1a1030] dark:shadow-[3px_3px_0_0_rgba(124,58,237,0.15)] hover:shadow-[1px_1px_0_0_#1a1030] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex flex-col justify-between h-full group">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-3 rounded-xl border border-violet-100 dark:border-violet-800/40 bg-violet-50 dark:bg-violet-900/20 shadow-[2px_2px_0_0_#1a1030] dark:shadow-[2px_2px_0_0_rgba(124,58,237,0.2)] group-hover:scale-105 transition-transform">
                       {card.icon}
                     </div>
-                    <h3 className="text-xl font-bold mb-3">{card.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{card.desc}</p>
+                    <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-violet-200 dark:border-violet-800/40 bg-violet-50 dark:bg-violet-900/20 text-violet-600 dark:text-violet-400">
+                      {card.tag}
+                    </span>
                   </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 5. OUR SOLUTION */}
-        <section id="solutions" className="py-24 bg-white dark:bg-darkcard">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeIn>
-              <div className="text-center mb-16">
-                <span className="text-secondary-600 dark:text-secondary-400 font-semibold tracking-wider text-sm uppercase mb-3 block">{t('home.solution_tag', 'Our Solution')}</span>
-                <h2 className="text-3xl md:text-4xl font-bold">{t('home.solution_title', 'What This Platform Delivers')}</h2>
-              </div>
-            </FadeIn>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { title: 'Youth-Friendly Digital Tools', desc: 'Accessible digital tools for self-assessments, mood tracking, and guided activities.', icon: <Smartphone /> },
-                { title: 'Peer Mentorship Networks', desc: 'Community-led support networks connecting youth with trained peer mentors.', icon: <Users /> },
-                { title: 'Anonymous Help Channels', desc: 'Safe and confidential spaces to seek help without fear of stigma.', icon: <EyeOff /> },
-                { title: 'NGO Wellbeing Dashboard', desc: 'Data-driven insights to track trends and identify areas requiring targeted support.', icon: <LineChart /> }
-              ].map((feature, i) => (
-                <FadeIn key={i} delay={i * 0.1} className="flex flex-col">
-                  <div className="flex-1 bg-slate-50 dark:bg-darkbg p-8 rounded-3xl rounded-tr-[3rem] border border-gray-100 dark:border-darkborder/50 hover:-translate-y-2 transition-transform duration-300">
-                    <div className="text-secondary-500 mb-6">{feature.icon}</div>
-                    <h3 className="text-lg font-bold mb-3">{feature.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 6. HOW IT WORKS (TIMELINE) */}
-        <section id="how-it-works" className="py-24 bg-primary-900 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary-800 rounded-full filter blur-3xl opacity-50 translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary-900 rounded-full filter blur-3xl opacity-50 -translate-x-1/2 translate-y-1/2"></div>
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <FadeIn className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold">{t('navbar.how_it_works')}</h2>
-              <p className="text-primary-200 mt-4 max-w-2xl mx-auto">{t('home.how_it_works_subtitle', 'A seamless journey to better mental health and supportive community.')}</p>
-            </FadeIn>
-
-            <div className="relative">
-              <div className="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-primary-800 -translate-y-1/2"></div>
-
-              <div className="grid lg:grid-cols-5 gap-8">
-                {[
-                  { step: '01', title: 'Join Platform', desc: 'Youth join and access resources directly.' },
-                  { step: '02', title: 'Daily Tools', desc: 'Use mood tracking & assessments.' },
-                  { step: '03', title: 'Connect', desc: 'Meet peer mentors & communities.' },
-                  { step: '04', title: 'Seek Help', desc: 'Use anonymous ask channels.' },
-                  { step: '05', title: 'NGO Impact', desc: 'Organizations deploy interventions.' }
-                ].map((item, i) => (
-                  <FadeIn key={i} delay={i * 0.15} className="relative group">
-                    <div className="bg-primary-800 lg:bg-primary-900 border-2 border-primary-700 w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl mb-6 mx-auto relative z-10 group-hover:bg-secondary-500 group-hover:border-secondary-500 transition-colors shadow-lg">
-                      {item.step}
-                    </div>
-                    <div className="text-center">
-                      <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                      <p className="text-primary-200 text-sm">{item.desc}</p>
-                    </div>
-                  </FadeIn>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 7. IMPACT */}
-        <section id="impact" className="py-24 bg-white dark:bg-darkcard">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <FadeIn>
-                <img src="/mainpage_impact.webp" alt="Support Ecosystem" className="w-full h-auto rounded-3xl shadow-xl" />
-              </FadeIn>
-              <FadeIn delay={0.2}>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">{t('home.impact_title', 'Creating a Support Ecosystem for Youth')}</h2>
-                <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">
-                  {t('home.impact_desc', 'This platform is designed not just as an app, but as an ecosystem that connects youth, mentors, and organizations. By combining digital wellbeing tools, community support networks, and data insights, the platform helps create safer environments where young people can seek help early and build resilience.')}
-                </p>
-                <div className="flex gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/40 flex items-center justify-center text-primary-600 dark:text-primary-400">
-                      <UserPlus />
-                    </div>
-                    <span className="font-semibold text-gray-800 dark:text-gray-200">Youth</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-secondary-100 dark:bg-secondary-900/40 flex items-center justify-center text-secondary-600 dark:text-secondary-400">
-                      <HeartPulse />
-                    </div>
-                    <span className="font-semibold text-gray-800 dark:text-gray-200">Mentors</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                      <ShieldCheck />
-                    </div>
-                    <span className="font-semibold text-gray-800 dark:text-gray-200">NGOs</span>
-                  </div>
+                  <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">{card.title}</h3>
+                  <p className="text-xs text-gray-600 dark:text-violet-300/60 leading-relaxed">{card.desc}</p>
                 </div>
-              </FadeIn>
-            </div>
-          </div>
-        </section>
-
-        {/* 8. CALL TO ACTION */}
-        <section className="py-24 bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-darkbg dark:to-primary-900/20 text-center border-t border-gray-100 dark:border-darkborder/50">
-          <div className="max-w-4xl mx-auto px-4">
-            <FadeIn>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-                {t('home.cta_title', 'Together We Can Build Safer Spaces for Youth')}
-              </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-10">
-                {t('home.cta_subtitle', 'Join us in transforming how young people access mental health support.')}
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <button className="bg-primary-600 hover:bg-primary-500 text-white px-8 py-3.5 rounded-full font-semibold outline-none focus:ring-4 ring-primary-500/30 transition-all">
-                  Join the Community
-                </button>
-                <button className="bg-white dark:bg-darkcard hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-900 dark:text-white px-8 py-3.5 rounded-full font-semibold outline outline-1 outline-gray-200 dark:outline-gray-600 transition-all">
-                  Partner With Us
-                </button>
-                <button className="bg-secondary-600 hover:bg-secondary-500 text-white px-8 py-3.5 rounded-full font-semibold outline-none focus:ring-4 ring-secondary-500/30 transition-all">
-                  Volunteer as a Peer Mentor
-                </button>
+                <Link to={card.path} className="mt-6 pt-3 border-t border-violet-100 dark:border-[#1e1535] text-xs font-bold text-primary-600 dark:text-violet-400 flex items-center justify-between group-hover:underline">
+                  <span>Enter Module</span>
+                  <ChevronRight size={14} />
+                </Link>
               </div>
             </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── 4. HOW IT WORKS (STEPPED BENTO TIMELINE) ─────────────────────────────── */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-violet-100 dark:border-[#1e1535]">
+        <FadeIn className="text-center max-w-2xl mx-auto mb-12">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-primary-600 dark:text-violet-400 block mb-1">
+            Structured Progression
+          </span>
+          <h2 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">
+            How The Journey Unfolds
+          </h2>
+        </FadeIn>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          {[
+            { step: '01', title: 'Safe Onboarding', desc: 'Join anonymously without sharing identifying details.', color: 'text-violet-500 dark:text-violet-400', bg: 'bg-violet-50 dark:bg-violet-950/40', border: 'border-violet-500/30 dark:border-violet-700/50' },
+            { step: '02', title: 'Daily Self-Care', desc: 'Log reflections and complete guided 2-minute rituals.', color: 'text-fuchsia-500 dark:text-fuchsia-400', bg: 'bg-fuchsia-50 dark:bg-fuchsia-950/30', border: 'border-fuchsia-500/30' },
+            { step: '03', title: 'Peer Camaraderie', desc: 'Connect with mentors who understand youth pressures.', color: 'text-secondary-600 dark:text-secondary-400', bg: 'bg-secondary-50 dark:bg-secondary-950/30', border: 'border-secondary-500/30' },
+            { step: '04', title: 'Clinical Testing', desc: 'Access clinical GAD-7 and PHQ-9 psychometrics.', color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-50 dark:bg-amber-950/30', border: 'border-amber-500/30' },
+            { step: '05', title: 'Resilience Growth', desc: 'Watch your emotional strength evolve over time.', color: 'text-pink-600 dark:text-pink-400', bg: 'bg-pink-50 dark:bg-pink-950/30', border: 'border-pink-500/30' },
+          ].map((item, idx) => (
+            <FadeIn key={idx} delay={idx * 0.08}>
+              <div className="bg-white dark:bg-[#0d0a1a] p-4 rounded-xl border border-violet-100 dark:border-[#1e1535] shadow-[2px_2px_0_0_#1a1030] dark:shadow-[2px_2px_0_0_rgba(124,58,237,0.12)] h-full">
+                <span className={`text-xs font-mono font-black ${item.color} border ${item.border} px-2 py-0.5 rounded ${item.bg} inline-block mb-3`}>
+                  {item.step}
+                </span>
+                <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-1">{item.title}</h3>
+                <p className="text-[11px] text-gray-500 dark:text-violet-300/50 leading-relaxed">{item.desc}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── 5. FINAL CALL TO ACTION BENTO BOX ───────────────────────────────────── */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="bg-gradient-to-br from-[#13102a] via-[#1a0d2e] to-[#0d0a1a] dark:from-[#0d0a1a] dark:via-[#13102a] dark:to-[#07050f] text-white p-8 sm:p-12 rounded-3xl border-2 border-violet-800/50 dark:border-[#1e1535] shadow-[4px_4px_0_0_#1a1030] dark:shadow-[4px_4px_0_0_rgba(124,58,237,0.3)] relative overflow-hidden text-center">
+          <div className="max-w-2xl mx-auto space-y-4 relative z-10">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-violet-400 border border-violet-500/30 px-3 py-1 rounded-full bg-violet-950/50 inline-block">
+              Sanctuary Awaits
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight bg-gradient-to-r from-white via-violet-200 to-fuchsia-200 text-transparent bg-clip-text">
+              You Don't Have to Carry It Alone.
+            </h2>
+            <p className="text-xs sm:text-sm text-violet-300/70 leading-relaxed">
+              Step into a judgment-free space designed by youth and clinical mentors to give you the mental clarity and resilience you deserve.
+            </p>
+            <div className="pt-4 flex flex-wrap justify-center gap-3">
+              <Link to="/signup" className="btn-tactile-accent px-6 py-3 rounded-xl text-xs sm:text-sm font-bold text-white">
+                Join Svasthya Free
+              </Link>
+              <Link to="/donate" className="btn-tactile px-6 py-3 rounded-xl text-xs sm:text-sm font-bold text-violet-200 dark:text-violet-200 bg-[#1e1535] border-violet-700">
+                Support Our Mission
+              </Link>
+            </div>
           </div>
-        </section>
-    </>
+
+          <div className="absolute -top-16 -left-16 w-48 h-48 bg-violet-600/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-16 -right-16 w-48 h-48 bg-fuchsia-600/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-800/10 rounded-full blur-3xl pointer-events-none" />
+        </div>
+      </section>
+
+    </div>
   );
 }

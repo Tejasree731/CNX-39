@@ -24,9 +24,9 @@ export default function LanguageSelector() {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-darkbg hover:bg-gray-200 dark:hover:bg-darkborder border border-gray-200 dark:border-darkborder transition-all text-xs font-semibold text-gray-700 dark:text-gray-300"
+        className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#13102a] hover:bg-[#1c153d] border border-[#2a1d4a] hover:border-violet-500/50 transition-all text-xs font-semibold text-violet-200 shadow-sm"
       >
-        <Languages size={14} className="text-primary-500" />
+        <Languages size={14} className="text-violet-400" />
         <span>{currentLanguage.name.split('|')[0].trim()}</span>
       </button>
 
@@ -38,21 +38,21 @@ export default function LanguageSelector() {
               initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
-              className="absolute right-0 mt-2 w-48 bg-white dark:bg-darkcard border border-gray-200 dark:border-darkborder rounded-2xl shadow-xl z-50 overflow-hidden"
+              className="absolute right-0 mt-2 w-48 bg-[#0d0a1a] border border-[#261a45] rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8),0_0_15px_rgba(124,58,237,0.2)] z-50 overflow-hidden"
             >
               <div className="p-2 space-y-1">
                 {languages.map((lng) => (
                   <button
                     key={lng.code}
                     onClick={() => changeLanguage(lng.code)}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-all ${
                       i18n.language === lng.code
-                        ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-bold'
-                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-darkbg'
+                        ? 'bg-violet-600/20 border border-violet-500/40 text-violet-200 font-bold shadow-sm'
+                        : 'text-violet-300/70 hover:bg-[#16102e] hover:text-white'
                     }`}
                   >
                     <span>{lng.name}</span>
-                    {i18n.language === lng.code && <Check size={14} />}
+                    {i18n.language === lng.code && <Check size={14} className="text-violet-400" />}
                   </button>
                 ))}
               </div>

@@ -15,8 +15,8 @@ const INSTRUMENTS = {
     subtitle: 'Generalized Anxiety Disorder Scale',
     description: 'Measures how often anxiety, nervousness, and worry have affected you over the last 2 weeks.',
     icon: Brain,
-    color: 'indigo',
-    optionType: 'frequency', // Not at all → Nearly every day
+    color: 'violet',
+    optionType: 'frequency',
     questions: [
       'Feeling nervous, anxious, or on edge',
       'Not being able to stop or control worrying',
@@ -33,7 +33,7 @@ const INSTRUMENTS = {
     subtitle: 'Patient Health Questionnaire',
     description: 'Screens for mood and interest patterns that indicate depression over the last 2 weeks.',
     icon: Sparkles,
-    color: 'emerald',
+    color: 'jade',
     optionType: 'frequency',
     questions: [
       'Little interest or pleasure in doing things',
@@ -54,7 +54,7 @@ const INSTRUMENTS = {
     description: 'Measures your ability to adapt and recover from challenges. An original Svasthya wellness instrument.',
     icon: Zap,
     color: 'amber',
-    optionType: 'agreement', // Never → Always (0-3 slider)
+    optionType: 'agreement',
     questions: [
       'When something goes wrong, I find a way to work through it',
       'I believe setbacks make me stronger in the long run',
@@ -74,8 +74,8 @@ const INSTRUMENTS = {
     subtitle: 'Svasthya Belonging Index',
     description: 'Measures how seen, valued, and connected you feel in your world. An original Svasthya wellness instrument.',
     icon: Users,
-    color: 'rose',
-    optionType: 'likert', // 1-5 scale
+    color: 'magenta',
+    optionType: 'likert',
     questions: [
       'I feel like I belong somewhere — at home, school, or with a group',
       'There are people in my life who truly understand me',
@@ -112,26 +112,46 @@ const LIKERT_OPTIONS = [
 ];
 
 const COLOR_CLASSES = {
-  indigo: { bg: 'bg-indigo-50 dark:bg-indigo-900/20', text: 'text-indigo-600', border: 'border-indigo-200 dark:border-indigo-800', selected: 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700' },
-  emerald: { bg: 'bg-emerald-50 dark:bg-emerald-900/20', text: 'text-emerald-600', border: 'border-emerald-200 dark:border-emerald-800', selected: 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700' },
-  amber: { bg: 'bg-amber-50 dark:bg-amber-900/20', text: 'text-amber-600', border: 'border-amber-200 dark:border-amber-800', selected: 'border-amber-500 bg-amber-50 dark:bg-amber-900/20 text-amber-700' },
-  rose: { bg: 'bg-rose-50 dark:bg-rose-900/20', text: 'text-rose-600', border: 'border-rose-200 dark:border-rose-800', selected: 'border-rose-500 bg-rose-50 dark:bg-rose-900/20 text-rose-700' },
+  violet: { 
+    bg: 'bg-violet-600/20', 
+    text: 'text-violet-400', 
+    border: 'border-violet-500/30', 
+    selected: 'border-violet-400 bg-violet-600/30 text-white shadow-[0_0_15px_rgba(124,58,237,0.4)]' 
+  },
+  jade: { 
+    bg: 'bg-secondary-500/20', 
+    text: 'text-secondary-400', 
+    border: 'border-secondary-500/30', 
+    selected: 'border-secondary-400 bg-secondary-500/30 text-white shadow-[0_0_15px_rgba(16,192,122,0.4)]' 
+  },
+  amber: { 
+    bg: 'bg-amber-500/20', 
+    text: 'text-amber-400', 
+    border: 'border-amber-500/30', 
+    selected: 'border-amber-400 bg-amber-500/30 text-white shadow-[0_0_15px_rgba(245,158,11,0.4)]' 
+  },
+  magenta: { 
+    bg: 'bg-magenta-500/20', 
+    text: 'text-magenta-400', 
+    border: 'border-magenta-500/30', 
+    selected: 'border-magenta-400 bg-magenta-500/30 text-white shadow-[0_0_15px_rgba(236,72,153,0.4)]' 
+  },
 };
 
 const SEVERITY_COLORS = {
-  'None-Minimal': 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20',
-  'Mild': 'text-amber-600 bg-amber-50 dark:bg-amber-900/20',
-  'Moderate': 'text-orange-600 bg-orange-50 dark:bg-orange-900/20',
-  'Moderately Severe': 'text-red-500 bg-red-50 dark:bg-red-900/20',
-  'Severe': 'text-red-700 bg-red-100 dark:bg-red-900/30',
-  'Fragile': 'text-red-500 bg-red-50 dark:bg-red-900/20',
-  'Developing': 'text-amber-600 bg-amber-50 dark:bg-amber-900/20',
-  'Strong': 'text-blue-600 bg-blue-50 dark:bg-blue-900/20',
-  'Champion': 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20',
-  'Isolated': 'text-red-600 bg-red-50 dark:bg-red-900/20',
-  'At-Risk': 'text-orange-600 bg-orange-50 dark:bg-orange-900/20',
-  'Connected': 'text-blue-600 bg-blue-50 dark:bg-blue-900/20',
-  'Thriving': 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20',
+  'None-Minimal': 'text-secondary-300 bg-secondary-500/20 border border-secondary-500/30',
+  'Mild': 'text-amber-300 bg-amber-500/20 border border-amber-500/30',
+  'Moderate': 'text-orange-300 bg-orange-500/20 border border-orange-500/30',
+  'Moderately Severe': 'text-pink-300 bg-pink-500/20 border border-pink-500/30',
+  'Severe': 'text-magenta-300 bg-magenta-500/30 border border-magenta-500/50',
+  'Fragile': 'text-pink-300 bg-pink-500/20 border border-pink-500/30',
+  'Developing': 'text-amber-300 bg-amber-500/20 border border-amber-500/30',
+  'Strong': 'text-violet-300 bg-violet-500/20 border border-violet-500/30',
+  'Champion': 'text-secondary-300 bg-secondary-500/20 border border-secondary-500/30',
+  'Isolated': 'text-magenta-300 bg-magenta-500/30 border border-magenta-500/40',
+  'At-Risk': 'text-orange-300 bg-orange-500/20 border border-orange-500/30',
+  'Connected': 'text-violet-300 bg-violet-500/20 border border-violet-500/30',
+  'Thriving': 'text-secondary-300 bg-secondary-500/20 border border-secondary-500/30',
 };
 
 // ── Main Component ──────────────────────────────────────────────────────────
@@ -142,7 +162,7 @@ export default function AssessmentPage() {
   const [answers, setAnswers] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState(null);
-  // Comprehensive mode
+
   const COMP_SEQUENCE = ['GAD-7', 'PHQ-9', 'RQ-10', 'SCS-8'];
   const [compIndex, setCompIndex] = useState(0);
   const [compResults, setCompResults] = useState([]);
@@ -151,7 +171,7 @@ export default function AssessmentPage() {
   const instrument = activeType ? INSTRUMENTS[activeType] : null;
   const questions = instrument?.questions || [];
   const options = instrument?.optionType === 'likert' ? LIKERT_OPTIONS : instrument?.optionType === 'agreement' ? AGREEMENT_OPTIONS : FREQUENCY_OPTIONS;
-  const colors = instrument ? COLOR_CLASSES[instrument.color] : COLOR_CLASSES.indigo;
+  const colors = instrument ? COLOR_CLASSES[instrument.color] : COLOR_CLASSES.violet;
 
   const startSingle = (type) => {
     setMode('single');
@@ -176,7 +196,7 @@ export default function AssessmentPage() {
     newAnswers[step] = val;
     setAnswers(newAnswers);
     if (step < questions.length - 1) {
-      setTimeout(() => setStep(step + 1), 280);
+      setTimeout(() => setStep(step + 1), 260);
     }
   };
 
@@ -203,7 +223,6 @@ export default function AssessmentPage() {
         setResult(data);
         toast.success('Assessment complete!');
       } else {
-        // Comprehensive: submit current, then advance
         const data = await submitAssessment(activeType, answers);
         const newResults = [...compResults, data];
         setCompResults(newResults);
@@ -216,7 +235,6 @@ export default function AssessmentPage() {
           setAnswers([]);
           toast.success(`${activeType} complete! Starting ${COMP_SEQUENCE[nextIdx]}...`);
         } else {
-          // All done
           setResult({ comprehensive: true, results: newResults });
           toast.success('Full Wellness Report complete!');
         }
@@ -239,13 +257,17 @@ export default function AssessmentPage() {
   // ── Home Screen ─────────────────────────────────────────────────────────
   if (mode === 'home') {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-darkbg py-16 px-4">
-        <div className="max-w-5xl mx-auto">
+      <div className="min-h-screen bg-[#07050f] py-16 px-4 relative overflow-hidden">
+        {/* Aurora Mesh background */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-magenta-500/10 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-14">
-            <h1 className="text-4xl font-black text-gray-900 dark:text-white italic tracking-tight mb-3">
+            <h1 className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-violet-200 via-fuchsia-200 to-white bg-clip-text text-transparent italic tracking-tight mb-3">
               Wellbeing Assessments
             </h1>
-            <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">
+            <p className="text-xs text-violet-400 font-bold uppercase tracking-widest">
               Clinical & Svasthya-Original Psychometric Instruments
             </p>
           </div>
@@ -254,22 +276,24 @@ export default function AssessmentPage() {
           <motion.button
             whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
             onClick={startComprehensive}
-            className="w-full mb-10 p-8 rounded-[2.5rem] bg-gradient-to-r from-primary-600 to-indigo-600 text-white text-left flex items-center justify-between shadow-2xl shadow-primary-500/20 relative overflow-hidden group"
+            className="w-full mb-10 p-8 sm:p-10 rounded-[2.5rem] bg-gradient-to-r from-violet-700 via-fuchsia-700 to-magenta-600 text-white text-left flex items-center justify-between shadow-[0_0_35px_rgba(124,58,237,0.35)] relative overflow-hidden group cursor-pointer border border-white/10"
           >
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <LayoutGrid size={20} />
-                <span className="text-[10px] font-black uppercase tracking-[0.25em] opacity-80">Recommended</span>
+                <div className="p-2 bg-white/15 rounded-xl backdrop-blur-md">
+                  <LayoutGrid size={18} />
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-[0.25em] text-violet-200">Recommended Protocol</span>
               </div>
-              <h2 className="text-2xl font-black italic mb-1">Full Wellness Report</h2>
-              <p className="text-sm opacity-75 font-medium">Complete all 4 assessments in one session. Get a comprehensive AI-powered insight letter.</p>
+              <h2 className="text-2xl sm:text-3xl font-black italic mb-1">Full Wellness Report</h2>
+              <p className="text-sm text-violet-100/80 font-medium max-w-xl">Complete all 4 assessments in one streamlined flow. Generates an AI neural insight letter.</p>
             </div>
-            <ChevronRight size={32} className="shrink-0 opacity-60 group-hover:translate-x-1 transition-transform" />
-            <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
+            <ChevronRight size={32} className="shrink-0 text-white/70 group-hover:translate-x-1 group-hover:text-white transition-all" />
+            <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none" />
           </motion.button>
 
           {/* Individual Instrument Cards */}
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-5">Or choose individually</p>
+          <p className="text-[10px] font-black text-violet-400/60 uppercase tracking-[0.2em] mb-5">Or choose individually</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {Object.entries(INSTRUMENTS).map(([key, inst]) => {
               const Icon = inst.icon;
@@ -277,31 +301,33 @@ export default function AssessmentPage() {
               return (
                 <motion.button
                   key={key}
-                  whileHover={{ y: -4 }} whileTap={{ scale: 0.98 }}
+                  whileHover={{ y: -5 }} whileTap={{ scale: 0.98 }}
                   onClick={() => startSingle(key)}
-                  className="bg-white dark:bg-darkcard p-8 rounded-[2rem] border border-gray-100 dark:border-darkborder shadow-sm text-left flex flex-col gap-4 relative overflow-hidden group"
+                  className="bg-[#0d0a1a] p-8 rounded-[2rem] border border-[#1e1535] hover:border-violet-500/40 shadow-sm text-left flex flex-col justify-between relative overflow-hidden group transition-all cursor-pointer"
                 >
-                  <div className={`p-3 ${c.bg} ${c.text} rounded-xl w-fit`}>
-                    <Icon size={20} />
-                  </div>
                   <div>
-                    <p className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">{key}</p>
-                    <h3 className="text-base font-black text-gray-900 dark:text-white italic leading-tight">{inst.title}</h3>
-                    <p className="text-[10px] text-gray-400 font-medium mt-2 leading-relaxed">{inst.description.split('.')[0]}.</p>
+                    <div className={`p-3.5 ${c.bg} ${c.text} rounded-2xl w-fit border ${c.border} mb-4 shadow-inner`}>
+                      <Icon size={22} />
+                    </div>
+                    <div>
+                      <p className="text-[9px] font-black text-violet-400/60 uppercase tracking-[0.2em] mb-1">{key}</p>
+                      <h3 className="text-lg font-black text-white italic leading-tight">{inst.title}</h3>
+                      <p className="text-[11px] text-violet-300/60 font-medium mt-2 leading-relaxed">{inst.description.split('.')[0]}.</p>
+                    </div>
                   </div>
-                  <div className={`flex items-center gap-1 text-[9px] font-black ${c.text} uppercase tracking-widest`}>
+                  <div className={`flex items-center gap-1 text-[9px] font-black ${c.text} uppercase tracking-widest mt-6`}>
                     {inst.questions.length} questions <ChevronRight size={12} />
                   </div>
-                  <div className={`absolute -right-8 -bottom-8 w-32 h-32 ${c.bg} rounded-full blur-2xl opacity-50 group-hover:opacity-100 transition-opacity`} />
+                  <div className={`absolute -right-8 -bottom-8 w-32 h-32 ${c.bg} rounded-full blur-2xl opacity-30 group-hover:opacity-80 transition-opacity`} />
                 </motion.button>
               );
             })}
           </div>
 
           {/* Disclaimer */}
-          <div className="mt-10 p-6 bg-amber-50 dark:bg-amber-900/10 border border-amber-200/50 dark:border-amber-900/30 rounded-3xl flex items-start gap-4">
-            <AlertCircle className="text-amber-500 shrink-0 mt-0.5" size={18} />
-            <p className="text-[10px] text-amber-800 dark:text-amber-200/60 font-semibold leading-relaxed">
+          <div className="mt-10 p-6 bg-amber-500/10 border border-amber-500/20 rounded-3xl flex items-start gap-4">
+            <AlertCircle className="text-amber-400 shrink-0 mt-0.5" size={18} />
+            <p className="text-xs text-amber-200/80 font-medium leading-relaxed">
               GAD-7 and PHQ-9 are validated clinical screening tools. RQ-10 and SCS-8 are original Svasthya Wellness Instruments inspired by established research. None of these replace a formal clinical diagnosis.
             </p>
           </div>
@@ -319,31 +345,31 @@ export default function AssessmentPage() {
     : step;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-darkbg py-16 px-4">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-[#07050f] py-16 px-4 relative overflow-hidden">
+      <div className="max-w-2xl mx-auto relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={() => { setMode('home'); setActiveType(null); setResult(null); }}
-            className="text-[10px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2 hover:text-primary-500 transition-all"
+            className="text-[10px] font-black text-violet-400/70 uppercase tracking-widest flex items-center gap-2 hover:text-white transition-all cursor-pointer"
           >
             <ChevronLeft size={14} /> Exit
           </button>
           <div className="text-center">
             <p className={`text-[9px] font-black uppercase tracking-[0.2em] ${colors.text}`}>{activeType}</p>
             {mode === 'comprehensive' && (
-              <p className="text-[9px] text-gray-400 font-bold">Assessment {compIndex + 1} of {COMP_SEQUENCE.length}</p>
+              <p className="text-[9px] text-violet-400/60 font-bold">Assessment {compIndex + 1} of {COMP_SEQUENCE.length}</p>
             )}
           </div>
-          <span className="text-[10px] font-black text-gray-400 tabular-nums">
+          <span className="text-[10px] font-black text-violet-400 tabular-nums">
             {step + 1} / {questions.length}
           </span>
         </div>
 
         {/* Progress Bar */}
-        <div className="h-1.5 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden mb-8">
+        <div className="h-2 bg-[#130d28] rounded-full overflow-hidden mb-8 border border-[#261a45]">
           <motion.div
-            className={`h-full bg-gradient-to-r from-primary-500 to-indigo-500`}
+            className="h-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-magenta-500 shadow-[0_0_10px_rgba(124,58,237,0.5)]"
             animate={{ width: `${((completedSteps + 1) / totalSteps) * 100}%` }}
             transition={{ duration: 0.4 }}
           />
@@ -353,16 +379,16 @@ export default function AssessmentPage() {
         <AnimatePresence mode="wait">
           <motion.div
             key={`${activeType}-${step}`}
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 25 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -30 }}
+            exit={{ opacity: 0, x: -25 }}
             transition={{ duration: 0.25 }}
-            className="bg-white dark:bg-darkcard rounded-[3rem] p-10 shadow-xl border border-gray-100 dark:border-darkborder mb-8"
+            className="bg-[#0d0a1a] rounded-[3rem] p-8 sm:p-10 shadow-[0_15px_40px_rgba(0,0,0,0.8),0_0_20px_rgba(124,58,237,0.15)] border border-[#1e1535] mb-8"
           >
             <p className={`text-[9px] font-black uppercase tracking-[0.2em] ${colors.text} mb-4`}>
               {instrument?.subtitle}
             </p>
-            <h2 className="text-xl font-black text-gray-900 dark:text-white italic leading-snug mb-10">
+            <h2 className="text-xl sm:text-2xl font-black text-white italic leading-snug mb-10">
               {questions[step]}
             </h2>
 
@@ -373,12 +399,14 @@ export default function AssessmentPage() {
                   <button
                     key={opt.value}
                     onClick={() => handleSelect(opt.value)}
-                    className={`p-4 rounded-2xl border-2 text-sm font-bold text-left transition-all duration-200 ${
-                      isSelected ? colors.selected : 'border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-darkbg text-gray-600 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-600'
+                    className={`p-4 rounded-2xl border-2 text-sm font-bold text-left transition-all duration-200 cursor-pointer ${
+                      isSelected 
+                        ? colors.selected 
+                        : 'border-[#261a45] bg-[#130d28] text-violet-200/80 hover:border-violet-500/40 hover:text-white'
                     }`}
                   >
-                    <span className={`text-[9px] font-black block uppercase tracking-widest mb-0.5 ${isSelected ? '' : 'text-gray-300 dark:text-gray-600'}`}>
-                      {instrument?.optionType === 'likert' ? opt.value : opt.value}
+                    <span className={`text-[9px] font-black block uppercase tracking-widest mb-0.5 ${isSelected ? 'text-white' : 'text-violet-400/50'}`}>
+                      {opt.value}
                     </span>
                     {opt.label}
                   </button>
@@ -393,7 +421,7 @@ export default function AssessmentPage() {
           <button
             disabled={step === 0}
             onClick={() => setStep(s => s - 1)}
-            className="p-4 text-gray-300 dark:text-gray-600 hover:text-primary-500 disabled:opacity-0 transition-all"
+            className="p-4 text-violet-400/40 hover:text-violet-300 disabled:opacity-0 transition-all cursor-pointer"
           >
             <ChevronLeft size={22} />
           </button>
@@ -404,7 +432,7 @@ export default function AssessmentPage() {
               animate={{ opacity: 1, scale: 1 }}
               onClick={handleFinish}
               disabled={submitting}
-              className="bg-gradient-to-r from-primary-600 to-indigo-600 text-white font-black px-10 py-4 rounded-2xl shadow-xl shadow-primary-500/20 hover:shadow-primary-500/40 transition-all uppercase tracking-widest text-[10px] disabled:opacity-60"
+              className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-magenta-600 hover:from-violet-500 hover:to-magenta-500 text-white font-black px-10 py-4 rounded-2xl shadow-[0_0_25px_rgba(124,58,237,0.4)] transition-all uppercase tracking-widest text-[10px] disabled:opacity-60 cursor-pointer"
             >
               {submitting
                 ? 'Generating Insight...'
@@ -424,32 +452,32 @@ function SingleResult({ result, instrument, questions, colors, onBack, navigate 
   const Icon = instrument?.icon || ShieldCheck;
   const maxScore = questions.length * (instrument?.optionType === 'likert' ? 5 : 3);
   const pct = Math.round((result.totalScore / maxScore) * 100);
-  const sevColor = SEVERITY_COLORS[result.severity] || 'text-primary-600 bg-primary-50';
+  const sevColor = SEVERITY_COLORS[result.severity] || 'text-violet-300 bg-violet-500/20';
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-darkbg py-16 px-4">
+    <div className="min-h-screen bg-[#07050f] py-16 px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-2xl mx-auto"
       >
-        <div className="bg-white dark:bg-darkcard rounded-[3rem] p-10 shadow-2xl border border-gray-100 dark:border-darkborder mb-6">
-          <div className={`w-16 h-16 ${colors.bg} ${colors.text} rounded-2xl flex items-center justify-center mb-6`}>
+        <div className="bg-[#0d0a1a] rounded-[3rem] p-8 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_30px_rgba(124,58,237,0.2)] border border-[#261a45] mb-6">
+          <div className={`w-16 h-16 ${colors.bg} ${colors.text} rounded-2xl flex items-center justify-center mb-6 border ${colors.border} shadow-[0_0_20px_rgba(124,58,237,0.3)]`}>
             <Icon size={28} />
           </div>
 
-          <p className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2">{result.type} Result</p>
-          <h2 className="text-3xl font-black text-gray-900 dark:text-white italic mb-6">{result.title}</h2>
+          <p className="text-[9px] font-black text-violet-400/60 uppercase tracking-[0.2em] mb-2">{result.type} Result</p>
+          <h2 className="text-3xl font-black text-white italic mb-6">{result.title}</h2>
 
           {/* Score Bar */}
-          <div className="bg-gray-50 dark:bg-darkbg rounded-2xl p-6 mb-6 border border-gray-100 dark:border-darkborder">
+          <div className="bg-[#130d28] rounded-2xl p-6 mb-6 border border-[#2a1d4a]">
             <div className="flex justify-between items-center mb-3">
-              <span className="text-xs font-black text-gray-500 uppercase tracking-widest">Clinical Score</span>
-              <span className="text-3xl font-black text-gray-900 dark:text-white italic">{result.totalScore}</span>
+              <span className="text-xs font-black text-violet-300/70 uppercase tracking-widest">Clinical Score</span>
+              <span className="text-3xl font-black text-white italic">{result.totalScore}</span>
             </div>
-            <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-4">
+            <div className="h-2 bg-[#07050f] rounded-full overflow-hidden mb-4 border border-[#261a45]">
               <motion.div
-                className="h-full bg-gradient-to-r from-primary-500 to-indigo-400"
+                className="h-full bg-gradient-to-r from-violet-500 to-magenta-400 shadow-[0_0_10px_rgba(124,58,237,0.6)]"
                 initial={{ width: 0 }}
                 animate={{ width: `${pct}%` }}
                 transition={{ duration: 1, ease: 'easeOut' }}
@@ -461,17 +489,17 @@ function SingleResult({ result, instrument, questions, colors, onBack, navigate 
           </div>
 
           {/* Clinical Interpretation */}
-          <p className="text-sm text-gray-600 dark:text-gray-400 font-medium leading-relaxed mb-6">
+          <p className="text-sm text-violet-200/80 font-medium leading-relaxed mb-6">
             {result.clinicalInterpretation}
           </p>
 
           {/* AI Insight */}
           {result.aiInsight && (
-            <div className="bg-gradient-to-br from-primary-50 to-indigo-50 dark:from-primary-900/10 dark:to-indigo-900/10 border border-primary-100 dark:border-primary-900/20 rounded-3xl p-6 mb-6">
-              <p className="text-[9px] font-black text-primary-500 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
-                <Sparkles size={12} /> AI Insight Letter
+            <div className="bg-gradient-to-br from-violet-950/40 to-magenta-950/30 border border-violet-500/30 rounded-3xl p-6 mb-6">
+              <p className="text-[9px] font-black text-violet-400 uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
+                <Sparkles size={12} className="text-amber-400" /> AI Insight Letter
               </p>
-              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed italic font-medium">
+              <p className="text-sm text-violet-100 leading-relaxed italic font-medium">
                 "{result.aiInsight}"
               </p>
             </div>
@@ -481,13 +509,13 @@ function SingleResult({ result, instrument, questions, colors, onBack, navigate 
         <div className="grid grid-cols-2 gap-4">
           <button
             onClick={() => navigate('/dashboard')}
-            className="bg-primary-600 text-white font-black py-4 rounded-2xl hover:bg-primary-500 transition-all uppercase text-[10px] tracking-widest shadow-xl shadow-primary-500/20"
+            className="bg-gradient-to-r from-violet-600 to-magenta-600 text-white font-black py-4 rounded-2xl hover:from-violet-500 hover:to-magenta-500 transition-all uppercase text-[10px] tracking-widest shadow-[0_0_20px_rgba(124,58,237,0.4)] cursor-pointer"
           >
             Dashboard
           </button>
           <button
             onClick={onBack}
-            className="bg-white dark:bg-darkcard text-gray-700 dark:text-gray-300 font-black py-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all uppercase text-[10px] tracking-widest border border-gray-100 dark:border-darkborder"
+            className="bg-[#130d28] text-violet-200 font-black py-4 rounded-2xl hover:bg-[#1a1236] transition-all uppercase text-[10px] tracking-widest border border-[#2a1d4a] cursor-pointer"
           >
             Try Another
           </button>
@@ -500,19 +528,21 @@ function SingleResult({ result, instrument, questions, colors, onBack, navigate 
 // ── Comprehensive Report ────────────────────────────────────────────────────
 function ComprehensiveResult({ results, onBack, navigate }) {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-darkbg py-16 px-4">
+    <div className="min-h-screen bg-[#07050f] py-16 px-4">
       <div className="max-w-3xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
-          <h2 className="text-3xl font-black text-gray-900 dark:text-white italic mb-2">Full Wellness Report</h2>
-          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Your complete Svasthya wellbeing profile</p>
+          <h2 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-violet-200 to-white bg-clip-text text-transparent italic mb-2">
+            Full Wellness Report
+          </h2>
+          <p className="text-[10px] text-violet-400 font-bold uppercase tracking-widest">Your complete Svasthya wellbeing profile</p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 gap-5 mb-8">
           {results.map((r, i) => {
             const inst = INSTRUMENTS[r.type];
             const Icon = inst?.icon || ShieldCheck;
-            const c = COLOR_CLASSES[inst?.color || 'indigo'];
-            const sevColor = SEVERITY_COLORS[r.severity] || 'text-primary-600 bg-primary-50';
+            const c = COLOR_CLASSES[inst?.color || 'violet'];
+            const sevColor = SEVERITY_COLORS[r.severity] || 'text-violet-300 bg-violet-500/20';
 
             return (
               <motion.div
@@ -520,21 +550,21 @@ function ComprehensiveResult({ results, onBack, navigate }) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-white dark:bg-darkcard rounded-[2rem] p-7 border border-gray-100 dark:border-darkborder shadow-sm"
+                className="bg-[#0d0a1a] rounded-[2rem] p-7 border border-[#1e1535] shadow-sm"
               >
-                <div className={`w-10 h-10 ${c.bg} ${c.text} rounded-xl flex items-center justify-center mb-4`}>
+                <div className={`w-10 h-10 ${c.bg} ${c.text} rounded-xl flex items-center justify-center mb-4 border ${c.border}`}>
                   <Icon size={18} />
                 </div>
-                <p className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">{r.type}</p>
-                <h4 className="text-base font-black text-gray-900 dark:text-white italic mb-3">{r.title}</h4>
+                <p className="text-[9px] font-black text-violet-400/60 uppercase tracking-[0.2em] mb-1">{r.type}</p>
+                <h4 className="text-base font-black text-white italic mb-3">{r.title}</h4>
                 <div className="flex items-center justify-between mb-4">
                   <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${sevColor}`}>
                     {r.severity}
                   </span>
-                  <span className="text-2xl font-black text-gray-900 dark:text-white italic">{r.totalScore}</span>
+                  <span className="text-2xl font-black text-white italic">{r.totalScore}</span>
                 </div>
                 {r.aiInsight && (
-                  <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed italic border-t border-gray-100 dark:border-gray-800 pt-3">
+                  <p className="text-[11px] text-violet-300/70 leading-relaxed italic border-t border-[#1e1535] pt-3">
                     "{r.aiInsight.slice(0, 120)}..."
                   </p>
                 )}
@@ -546,13 +576,13 @@ function ComprehensiveResult({ results, onBack, navigate }) {
         <div className="grid grid-cols-2 gap-4">
           <button
             onClick={() => navigate('/dashboard')}
-            className="bg-gradient-to-r from-primary-600 to-indigo-600 text-white font-black py-4 rounded-2xl hover:opacity-90 transition-all uppercase text-[10px] tracking-widest shadow-xl shadow-primary-500/20"
+            className="bg-gradient-to-r from-violet-600 to-magenta-600 text-white font-black py-4 rounded-2xl hover:from-violet-500 hover:to-magenta-500 transition-all uppercase text-[10px] tracking-widest shadow-[0_0_20px_rgba(124,58,237,0.4)] cursor-pointer"
           >
             View Dashboard
           </button>
           <button
             onClick={onBack}
-            className="bg-white dark:bg-darkcard text-gray-700 dark:text-gray-300 font-black py-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all uppercase text-[10px] tracking-widest border border-gray-100 dark:border-darkborder"
+            className="bg-[#130d28] text-violet-200 font-black py-4 rounded-2xl hover:bg-[#1a1236] transition-all uppercase text-[10px] tracking-widest border border-[#2a1d4a] cursor-pointer"
           >
             Back to Assessments
           </button>
